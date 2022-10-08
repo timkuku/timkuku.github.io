@@ -855,7 +855,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-10-08 17:40:38" itemprop="dateModified" datetime="2022-10-08T17:40:38+08:00">2022-10-08</time>
+                <time title="修改时间：2022-10-08 17:46:28" itemprop="dateModified" datetime="2022-10-08T17:46:28+08:00">2022-10-08</time>
               </span>
 
           
@@ -869,10 +869,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="误差与有效数字"><a href="#误差与有效数字" class="headerlink" title="误差与有效数字"></a>误差与有效数字</h2>
-**定义一**  设$x$为准确值，$x^{*}$为$x$的一个近似值，称$e^{*}=x^{*}-x$为近似值的绝对误差
-
-**定义二**  若近似值$x^{*}$的误差限是某一位的半个单位，该位到$x^{*}$的第一个非零数字共有$n$为，就说$x^{*}$有$n$为有效数字，可以表示为
+          <h2 id="误差与有效数字"><a href="#误差与有效数字" class="headerlink" title="误差与有效数字"></a>误差与有效数字</h2><p><strong>定义一</strong>  设$x$为准确值，$x^{*}$为$x$的一个近似值，称$e^{*}=x^{*}-x$为近似值的绝对误差</p>
+<p><strong>定义二</strong>  若近似值$x^{*}$的误差限是某一位的半个单位，该位到$x^{*}$的第一个非零数字共有$n$为，就说$x^{*}$有$n$为有效数字，可以表示为
 $$
 x^{*}=\pm 10^{m}\times (a_{1}+a_{2}\times 10^{-1}+\cdots+a_{n}\times 10^{-(n-1)}),
 $$
@@ -880,17 +878,14 @@ $$
 $$
 \left| x-x^{*}\right|\leq\frac12\times10^{m-n+1}.
 $$
-另外需要说明的其余几个符号：
+</p>
+<p>另外需要说明的其余几个符号：</p>
+<p><strong>误差限$\epsilon^{*}$</strong>	误差绝对值的上界</p>
+<p><strong>相对误差$e_{r}^{*}$</strong>	$\frac{e^{*}}{x}=\frac{x^{*}-x}{x}$或者$\frac{e^{*}}{x^{*}}=\frac{x^{*}-x}{x^{*}}$</p>
+<p><strong>相对误差限$\epsilon_{r}^{*}$</strong>	$\epsilon_{r}^{*}=\frac{\epsilon^{*}}{\left|x^{*}\right|}$</p>
+<h2 id="数值运算的误差估计"><a href="#数值运算的误差估计" class="headerlink" title="数值运算的误差估计"></a>数值运算的误差估计</h2>	
 
-**误差限$\epsilon^{*}$**	误差绝对值的上界
-
-**相对误差$e_{r}^{*}$**	$\frac{e^{*}}{x}=\frac{x^{*}-x}{x}$或者$\frac{e^{*}}{x^{*}}=\frac{x^{*}-x}{x^{*}}$
-
-**相对误差限$\epsilon_{r}^{*}$**	$\epsilon_{r}^{*}=\frac{\epsilon^{*}}{\left|x^{*}\right|}$
-
-## 数值运算的误差估计
-
-​	两个近似值$x_{1}^{*}$和$x_{2}^{*}$的误差限分别为$\epsilon(x_{1}^{*})$和$\epsilon(x_{2}^{*})$，则它们进行加减乘除运算得到的误差限满足：
+两个近似值$x_{1}^{*}$和$x_{2}^{*}$的误差限分别为$\epsilon(x_{1}^{*})$和$\epsilon(x_{2}^{*})$，则它们进行加减乘除运算得到的误差限满足：
 $$
 \begin{array}
 \epsilon(x_{1}^{*}\pm x_{2}^{*})\le \epsilon(x_{1}^{*})+\epsilon(x_{1}^{*});\\\\
