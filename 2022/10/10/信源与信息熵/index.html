@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="回归方程的选取 此处不考虑非线性回归方程，主要讨论线性回归模型的自变量选取问题。实际生产中有可能有个别一两个自变量对于Y的贡献很少，一直在这摸鱼，所以算它们费力不讨好，所以作为资本家需要找出最有力的几个自变量，然后着重看这几个自变量就可以代表因变量Y了。对方程的选取分为两种方法：（1）穷举法（2）逐步回归法  穷举法 从这M-1个自变量所有可能的子集按照一定的准则找出最优的子集  1.修正的复相关">
+  <meta name="description" content="信源是发出信息的源，信源输出是以符号形式出现的信息，如果符号事先已经知道，那么该消息没有信息可言，只有当符号的出现时随机的、无法事先预见的，该符号的出现才给观察者提供了信息。而这些符号的出现在统计上具有某种规律性，因此可以利用概率论中的随机变量、随机矢量过程对信源进行分析，这是信息论的基础  一些需要了解的知识点 先验概率：根据以往经验和分析得到的概率。一直对应的是后验概率，从结果重新修正概率。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="回归方程的选取">
-<meta property="og:url" content="http://example.com/2022/10/06/select_regression_equation/index.html">
+<meta property="og:title" content="信源与信息熵">
+<meta property="og:url" content="http://example.com/2022/10/10/%E4%BF%A1%E6%BA%90%E4%B8%8E%E4%BF%A1%E6%81%AF%E7%86%B5/index.html">
 <meta property="og:site_name" content="Timkuku">
-<meta property="og:description" content="回归方程的选取 此处不考虑非线性回归方程，主要讨论线性回归模型的自变量选取问题。实际生产中有可能有个别一两个自变量对于Y的贡献很少，一直在这摸鱼，所以算它们费力不讨好，所以作为资本家需要找出最有力的几个自变量，然后着重看这几个自变量就可以代表因变量Y了。对方程的选取分为两种方法：（1）穷举法（2）逐步回归法  穷举法 从这M-1个自变量所有可能的子集按照一定的准则找出最优的子集  1.修正的复相关">
+<meta property="og:description" content="信源是发出信息的源，信源输出是以符号形式出现的信息，如果符号事先已经知道，那么该消息没有信息可言，只有当符号的出现时随机的、无法事先预见的，该符号的出现才给观察者提供了信息。而这些符号的出现在统计上具有某种规律性，因此可以利用概率论中的随机变量、随机矢量过程对信源进行分析，这是信息论的基础  一些需要了解的知识点 先验概率：根据以往经验和分析得到的概率。一直对应的是后验概率，从结果重新修正概率。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-10-06T13:45:59.285Z">
-<meta property="article:modified_time" content="2022-10-08T09:13:51.422Z">
+<meta property="article:published_time" content="2022-10-09T16:05:54.965Z">
+<meta property="article:modified_time" content="2022-10-09T16:21:41.232Z">
 <meta property="article:author" content="Liao">
-<meta property="article:tag" content="数据分析">
+<meta property="article:tag" content="信息论与编码">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/2022/10/06/select_regression_equation/">
+<link rel="canonical" href="http://example.com/2022/10/10/%E4%BF%A1%E6%BA%90%E4%B8%8E%E4%BF%A1%E6%81%AF%E7%86%B5/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>回归方程的选取 | Timkuku</title>
+  <title>信源与信息熵 | Timkuku</title>
   
 
 
@@ -152,7 +152,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/06/select_regression_equation/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/10/%E4%BF%A1%E6%BA%90%E4%B8%8E%E4%BF%A1%E6%81%AF%E7%86%B5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -165,7 +165,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          回归方程的选取
+          信源与信息熵
         </h1>
 
         <div class="post-meta">
@@ -174,16 +174,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2022-10-06 21:45:59" itemprop="dateCreated datePublished" datetime="2022-10-06T21:45:59+08:00">2022-10-06</time>
+              <time title="创建时间：2022-10-10 00:05:54 / 修改时间：00:21:41" itemprop="dateCreated datePublished" datetime="2022-10-10T00:05:54+08:00">2022-10-10</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-10-08 17:13:51" itemprop="dateModified" datetime="2022-10-08T17:13:51+08:00">2022-10-08</time>
-              </span>
 
           
 
@@ -196,67 +190,131 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="回归方程的选取"><a href="#回归方程的选取" class="headerlink" title="回归方程的选取"></a>回归方程的选取</h2><blockquote>
-<p>此处不考虑非线性回归方程，主要讨论线性回归模型的自变量选取问题。实际生产中有可能有个别一两个自变量对于Y的贡献很少，一直在这摸鱼，所以算它们费力不讨好，所以作为资本家需要找出最有力的几个自变量，然后着重看这几个自变量就可以代表因变量Y了。对方程的选取分为两种方法：（1）穷举法（2）逐步回归法</p>
+        <blockquote>
+<p>信源是发出信息的源，信源输出是以符号形式出现的信息，如果符号事先已经知道，那么该消息没有信息可言，只有当符号的出现时随机的、无法事先预见的，该符号的出现才给观察者提供了信息。而这些符号的出现在统计上具有某种规律性，因此可以利用概率论中的随机变量、随机矢量过程对信源进行分析，这是信息论的基础</p>
 </blockquote>
-<h3 id="穷举法"><a href="#穷举法" class="headerlink" title="穷举法"></a>穷举法</h3><ul>
-<li>从这M-1个自变量所有可能的子集按照一定的准则找出最优的子集</li>
+<h2 id="一些需要了解的知识点"><a href="#一些需要了解的知识点" class="headerlink" title="一些需要了解的知识点"></a>一些需要了解的知识点</h2><ul>
+<li>先验概率：根据以往经验和分析得到的概率。一直对应的是后验概率，从结果重新修正概率。</li>
 </ul>
-<p>1.修正的复相关系数准则或均方残差准则($R^2_a(p)或MSE_p$准则)</p>
+<h2 id="信源的分类及数学模型"><a href="#信源的分类及数学模型" class="headerlink" title="信源的分类及数学模型"></a>信源的分类及数学模型</h2><ul>
+<li><p>按照时间和幅度的分布情况，信源分为<strong>离散信源</strong>和<strong>连续信源</strong></p>
 <ul>
-<li>修正的复相关系数的求法：<ul>
-<li>$R^2_p=1-\frac{SSE_p}{SST}$其中$SSE_p$为相应的回归方程的残差平方和，$SST$为总离差平方和（与回归方程无关）</li>
+<li>数量有限的信源就是离散信源</li>
 </ul>
 </li>
-<li>单单求出$R^2_p$是没有用的，因为默认会选取最多的自变量，那么此时需要p<ul>
-<li>$R_a^2(p)=1-(\frac{n-1}{n-p})\frac{SSE_p}{SST}=1-\frac{MSE_p}{SST/(n-1)}$</li>
-</ul>
+<li><p>按照信源符号之间的关系可以分为以下几类：</p>
 </li>
-<li><code>sas</code>中<code>proc reg</code>的<code>ADJRSQ</code>option</li>
-</ul>
-<p>2.$C_p$准则</p>
+<li><p>无记忆信源</p>
 <ul>
-<li><p>$C_p$统计量</p>
-<script type="math/tex; mode=display">
-C_p=\frac{SSE_p}{MSE}-(n-2p)</script><p>当仅含某p-1个自变量的回归方程与含有全部M-1个自变量的回归方程对检测的拟合效果无差异时，有$E(C_p)\approx (n-p)-(n-2p)=p$.由此可知，拟合效果较好的回归方程，其$C_p$值应和$p$值相差不大</p>
-</li>
-<li><p>实际应用中，可以画图来判断，p值为横坐标，$C_p$为纵坐标，划出直线$C_p=p$，并观测。</p>
-</li>
-<li><p><code>sas</code>中<code>proc reg</code>的<code>CP</code>option</p>
-</li>
-</ul>
-<p>3.预测平方和准则（$PRESS_p准则$）留一法</p>
-<blockquote>
-<p>思想：抽取一组数据作为检验，其他数据做拟合</p>
-</blockquote>
-<script type="math/tex; mode=display">
-d_i(p)=\frac{\hat \epsilon(p)}{1-h_{ii}(p)},i=1,2,\cdots,n,</script><p>算出每一个Pr值，<strong>最小</strong>或者<strong>达到最小</strong>的回归方程为最优回归方程</p>
-<p><code>SAS</code>中的<code>proc reg</code>过程步提供了第一和第二个准则选取最优方程的选项，第三个可以自己输入来实现。</p>
-<h3 id="逐步回归法"><a href="#逐步回归法" class="headerlink" title="逐步回归法"></a>逐步回归法</h3><blockquote>
-<p>穷举法需要计算的量随着自变量的增加而增加，当自变量个数较大时，计算了也十分庞大。所以有一些计算量较少的方法，这里介绍逐步回归法，他不需要拟合所有可能的回归方程也能得到一个理想的方程，但缺点是只能找到一个</p>
-<p>思路：拟合一系列的回归方程，后一个回归方程相较于前一个回归方程的基础上添加一个或者删除一个，删除或者增加的准则依靠残差平方和的相对增加或者相对减少量来决定。有点像数据结构找最值的最简单的思路或者生活中职场上面试的过程，一轮面试+二轮面试</p>
-</blockquote>
+<li><p>单个符号的离散无记忆的信源</p>
 <ul>
-<li><p>统计量：</p>
-<ul>
-<li><p>偏F统计量</p>
-<script type="math/tex; mode=display">
-F_k=\frac{SSE(A)-SSE(A,X_k)}{SSE(A,X_k)/(n-l-1)}=\frac{SSR(X_k|A)}{MSE(A,X_k)}</script></li>
-<li><p>p值</p>
-<script type="math/tex; mode=display">
-p^{(1)}_{k}=P(F(1,n-2)\ge F_k^{(1)}),k=1,2,\cdots,M-1</script></li>
-<li><p>两个显著性水平，即门槛，输入门槛$\alpha_E$，输出门槛$\alpha_D$，<code>sas</code>中默认值为0.15，记得输出门槛要比输入门槛要高，要不然进去一个就出来一个</p>
+<li>$\left[\begin{array}\\X\\P\end{array}\right]=\left[\begin{array}\\a_1&a_2&\cdots&a_n\\p(a_1)&p(a_2)&\cdots&p(a_n)\end{array}\right]$
+    
+</li>
+<li><p>放回抽样抽小球</p>
 </li>
 </ul>
 </li>
-<li><p>步骤：</p>
+<li><p>单个符号的连续无记忆信源</p>
 <ul>
-<li>先拟合仅包含一个自变量的回归方程，计算其F值并检验其p值$Y=\beta_0+\beta_kX_k+\epsilon$，这里的意思是计算n个式子，可以理解为预演一遍，每一个k都算一遍，然后找出对应最大的偏F值$\mathop{min}\limits_{1\le k\le M-1}\{F^{(1)}_k\}=F^{(1)}_{k_{1}}$和p值$p^{(1)}_{k_{1}}$.若该p值大于或者等于输入门槛 $\alpha_E$ ，则所有自变量对Y的影响都不显著，直接放弃选择；反之，则将那位在k位置上的自变量老兄拉进来</li>
-<li>有了一个老兄，那么还需要继续找其他合适的演员，那么接下来的继续一样的操作<strong>逐个逐个找</strong>找到另一个自变量，但是找到一个以后不需要着急，先对他两进行二轮面试先。拟合模型$Y=\beta<em>0+\beta</em>{k<em>{1}}X</em>{k<em>{1}}+\beta</em>{k<em>{2}}X</em>{k<em>{2}}+\epsilon$计算他两的偏F值，其中的A就是对方，找到最小的偏F值$\mathop{min}\limits</em>{k_1\le k\le k_2}{F^{(1)}_k}$对应的p值，与输出门槛对比，若该p值大于或者等于输出门槛$\alpha_E$，则所有自变量对Y的影响都不显著，直接放弃它，将这个自变量剔除，然后在审查另一个自变量；反之则可以继续留下来</li>
-<li>重复以上过程，那么就可以找到最优回归方程了</li>
+<li>$\left[\begin{array}\\X\\P\end{array}\right]=\left[\begin{array}\\(a,b)\\p_x(x)\end{array}\right]=\left[\begin{array}\\R\\p_x(x)\end{array}\right]$
+    </li>
+<li>该符号的取值是a到b之间的所有数，每次测量值随机</li>
 </ul>
 </li>
-<li><code>sas</code>的<code>proc reg</code> 中的<code>STEPWISE</code>options.</li>
+<li><p>发出符号序列的信源</p>
+<ul>
+<li><p>每次发出一组含两个以上符号的符号序列来代表一个消息的信源</p>
+</li>
+<li><p>用随机序列（或随机矢量）$\mathbf{X}=(X_1,X_2,\cdots,X_L)$来描述信息，用联合概率分布来表示信源特征</p>
+</li>
+<li><p>L&#x3D;2</p>
+</li>
+<li>
+
+$\left[\begin{array}\\\mathbf{X}\\P\end{array}\right]=\left[\begin{array}\\a_1,a_1&a_1,a_2&\cdots&a_n,a_n\\p(a_1,a_1)&p(a_1,a_2)&\cdots&p(a_n,a_n)\end{array}\right]$
+    
+    
+</li>
+<li><p>放回抽样，一次抽两个小球</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>在离散无记忆信源中，每个符号统计独立，具有相同的概率空间，称为独立同分布</p>
+</li>
+<li><p>有记忆信源</p>
+<ul>
+<li><p>发出符号序列的有记忆信源</p>
+<ul>
+<li>单词字母的组合</li>
+</ul>
+</li>
+<li><p>马尔可夫信源(Markov)</p>
+<ul>
+<li>$p(x_i|x_1,x_2,\cdots,x_{i-1})=p(x_i|x_{i-m},\cdots,x_{i-2},x_{i-1})$称为m阶马尔可夫信源
+</li>
+<li><p>用前面m个表达式代替前面所有因子，或者说除了与前面m个因子有关之外与其他更前面的因子无关</p>
+</li>
+<li><p>若条件概率与时间起点无关，则信源输出的符号序列可看成<strong>齐次马尔可夫链</strong></p>
+</li>
+<li><p>所以显然，一阶马尔可夫信源为</p>
+
+      $p(x_3|x_1,x_2)=p(x_3|x_2)\\p(x_4|x_1,x_2,x_3)=p(x_4|x_3)\\p(x_5|x_1,x_2,x_3,x_4)=p(x_5|x_4)\\\cdots$
+      
+      
+</li>
+<li><p>**状态$s_i$**：定义即是马尔可夫链的条件：</p>
+
+      $$
+      s_i=(x_{i_{1}},x_{i_{2}}\cdots,x_{i_{m}}),x_{i_{1}},x_{i_{2}}\cdots,x_{i_{m}}\in A=(a_1,a_2,\cdots,a_n)
+      $$
+      
+</li>
+<li><p>状态转移概率$p_{ij}(m,n)$</p>
+
+      $$
+      p_{ij}(m)=P\{S_n=s_j|S_m=s_i\}=P\{s_j|s_i\} \ \ \  i,j\in S
+      $$
+      $p_{ij}(m,n)$可以理解为已知系统m在$s_i$时刻下，系统n在$s_j$时刻的概率
+      
+</li>
+<li><p>k步转移概率</p>
+
+      $$
+      p^{(k)}_{ij}(m)=P\{S_{m+k}=j|S_m=i\}=p_{ij}(m)
+      $$
+      
+</li>
+<li><p>转移矩阵</p>
+
+      $P=\left[\begin{array}{1}p_{11}&p_{12}&\cdots&p_{1Q}\\p_{21}&p_{22}&\cdots&p_{2Q}\\\cdots&\cdots&\cdots&\cdots\\p_{Q1}&p_{Q2}&\cdots&p_{QQ}\end{array}\right]$
+      
+    
+      可以这样理解：第i行元素对应从某一状态$s_i$转移到所有状态$s_j$的转移概率，元素和为1；第j列元素对应从所有状态转移到某一状态$s_i$的转移概率
+      
+      
+</li>
+<li><p>k步转移概率满足以下方程：</p>
+
+      $$
+      P^{k}=PP^{(k-1)}=\cdots=P^{k}
+      $$
+      </li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>链式法则</p>
+<ul>
+<li>
+    $p(x_1,\cdots,x_L)=p(x_L|x_1,x_2,\cdots,x_{L-1})p(x_1,x_2,\cdots,x_{L-1})\\p(x_1,x_2,\cdots,x_{L-1})=p(x_{L-1}|x_1,x_2,\cdots,x_{L-2})p(x_1,x_2,\cdots,x_{L-2})\\\cdots$
+    </li>
+<li>由此可得：
+    $p(x_1,\cdots,x_L)=p(x_1)p(x_2|x_1)\cdots p(x_1,x_2,\cdots,x_{L-1})$
+    </li>
+</ul>
+</li>
 </ul>
 
     </div>
@@ -267,7 +325,7 @@ p^{(1)}_{k}=P(F(1,n-2)\ge F_k^{(1)}),k=1,2,\cdots,M-1</script></li>
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" rel="tag"># 数据分析</a>
+              <a href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA%E4%B8%8E%E7%BC%96%E7%A0%81/" rel="tag"># 信息论与编码</a>
           </div>
 
         
@@ -276,13 +334,10 @@ p^{(1)}_{k}=P(F(1,n-2)\ge F_k^{(1)}),k=1,2,\cdots,M-1</script></li>
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/10/06/%E6%AE%8B%E5%B7%AE%E5%88%86%E6%9E%90/" rel="prev" title="残差分析">
-      <i class="fa fa-chevron-left"></i> 残差分析
+    <a href="/2022/10/06/select_regression_equation/" rel="prev" title="回归方程的选取">
+      <i class="fa fa-chevron-left"></i> 回归方程的选取
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2022/10/10/%E4%BF%A1%E6%BA%90%E4%B8%8E%E4%BF%A1%E6%81%AF%E7%86%B5/" rel="next" title="信源与信息熵">
-      信源与信息熵 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -341,7 +396,7 @@ p^{(1)}_{k}=P(F(1,n-2)\ge F_k^{(1)}),k=1,2,\cdots,M-1</script></li>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9E%E5%BD%92%E6%96%B9%E7%A8%8B%E7%9A%84%E9%80%89%E5%8F%96"><span class="nav-number">1.</span> <span class="nav-text">回归方程的选取</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A9%B7%E4%B8%BE%E6%B3%95"><span class="nav-number">1.1.</span> <span class="nav-text">穷举法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%90%E6%AD%A5%E5%9B%9E%E5%BD%92%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">逐步回归法</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E9%9C%80%E8%A6%81%E4%BA%86%E8%A7%A3%E7%9A%84%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="nav-number">1.</span> <span class="nav-text">一些需要了解的知识点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%A1%E6%BA%90%E7%9A%84%E5%88%86%E7%B1%BB%E5%8F%8A%E6%95%B0%E5%AD%A6%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">信源的分类及数学模型</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

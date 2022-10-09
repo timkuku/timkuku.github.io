@@ -193,8 +193,8 @@
 <p>在实际生产中，我们很少遇到如前一节所说的误差项服从正态分布的情况，此时我们就需要对误差项进行检验、假设和处理，这就需要用到误差分析了。从残差出发分析关于误差项假定的合理性以及线性回归的可行性称为残差分析。此处介绍（1）误差项的正态性检验、（2）基于残差图的分析方法、（3）Box-Cox数据变换方法</p>
 </blockquote>
 <ul>
-<li>对于线性回归模型，若误差向量$\epsilon\sim N(0,\sigma^2I)$，则残差向量$\hat \epsilon\sim N(0,\sigma^2(I-H))$	(建议回想一下$D(x)&#x3D;E(x^2)-((Ex)^2)$</li>
-<li>过程：检验–&gt;若不满足则数据转换</li>
+<li>对于线性回归模型，若误差向量$\epsilon\sim N(0,\sigma^2I)$，则残差向量$\hat \epsilon\sim N(0,\sigma^2(I-H))$    (建议回想一下$D(x)=E(x^2)-((Ex)^2)$</li>
+<li>过程：检验—&gt;若不满足则数据转换</li>
 </ul>
 <h1 id="误差项的正态性检验"><a href="#误差项的正态性检验" class="headerlink" title="误差项的正态性检验"></a>误差项的正态性检验</h1><ul>
 <li><p>首先需要明确的是，适用于数据的正态性检验同样适用于误差项的正态性检验，例如<code>sas</code>软件中的<code>proc reg</code>过程步，就有关于正态性检验的输出(那三个很长的人名检验方法就是了，大致思路一样，只是它们对长度的定义不一样，所以导致出现这种结果；还有那个W检验同样会适用)</p>
@@ -205,7 +205,9 @@
 <h2 id="学生化残差"><a href="#学生化残差" class="headerlink" title="学生化残差"></a>学生化残差</h2><ul>
 <li><p>假定误差向量$\epsilon\sim N(0,\sigma^2I)$,则残差向量$\hat \epsilon\sim N(0,\sigma^2(I-H))$</p>
 </li>
-<li><p>由于方差不等，所以需要进行标准化，得到学生化残差：<br>$$<br>r_i&#x3D;\frac{\hat \epsilon_i}{\sqrt{MSE\cdot(1-h_{ii})}},i&#x3D;1,2,\cdots,n<br>$$<br>注意此处部分而从t(n-p)分布</p>
+<li><p>由于方差不等，所以需要进行标准化，得到学生化残差：</p>
+<script type="math/tex; mode=display">
+r_i=\frac{\hat \epsilon_i}{\sqrt{MSE\cdot(1-h_{ii})}},i=1,2,\cdots,n</script><p>注意此处部分而从t(n-p)分布</p>
 </li>
 <li><p>求得学生化残差后，开始数数：将学生化残差在某个区域的<strong>频率</strong>与正态分布在相同区域的<strong>概率</strong>进行对比，若差别不大，则可以近似的认为满足正态分布，否则不满足。</p>
 </li>
@@ -213,7 +215,7 @@
 <h2 id="正态QQ图检验"><a href="#正态QQ图检验" class="headerlink" title="正态QQ图检验"></a>正态QQ图检验</h2><ul>
 <li>做法<ul>
 <li>将学生化残差排序由小到大</li>
-<li>对每个$i&#x3D;1,2,\cdots,n$，计算$q_i&#x3D;\Phi^{-1}(\frac{i-0.375}{n+0.25})$，其中0.375与0.25为修正量，$\Phi^{-1}$为标准正态分布的反函数（还没弄明白）</li>
+<li>对每个$i=1,2,\cdots,n$，计算$q_i=\Phi^{-1}(\frac{i-0.375}{n+0.25})$，其中0.375与0.25为修正量，$\Phi^{-1}$为标准正态分布的反函数（还没弄明白）</li>
 <li>画图，横坐标轴为$r_i$，纵坐标轴为$q_i$.</li>
 </ul>
 </li>
@@ -240,7 +242,9 @@
 <ul>
 <li><p>Box-Cox变换需要因变量$Y$为正数</p>
 </li>
-<li><p>变化如下<br>$$<br>Y^\lambda&#x3D;\begin{cases}\frac{Y^\lambda-1}{\lambda},\lambda\ne 0,\\lnY,\lambda&#x3D;0,\end{cases}<br>$$<br>然后通过最大似然估计找到合适的$\lambda$使该方程达到最大。</p>
+<li><p>变化如下</p>
+<script type="math/tex; mode=display">
+Y^\lambda=\begin{cases}\frac{Y^\lambda-1}{\lambda},\lambda\ne 0,\\\\lnY,\lambda=0,\end{cases}</script><p>然后通过最大似然估计找到合适的$\lambda$使该方程达到最大。</p>
 </li>
 <li><p><code>proc reg</code>过程步可以提供残差平方和，也可使用<code>proc iml</code>自行编写程序</p>
 </li>
@@ -342,12 +346,12 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
