@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="回归分析 注意此处的矩阵默认情况下是n*1的矩阵，即列向量  这里需要了解的地方：  数的平方用矩阵表示为向量乘以向量的转置，即$\sum x^2&#x3D;X^TX$  对称幂等矩阵有1.其平方等于自身 2.其转置等于自身 3.与$I$的加减仍是对称幂等矩阵 这三个性质  一个矩阵的转置乘以其自身得到的是一个对称幂等矩阵$X^TX$  $(AB)^T&#x3D;B^TA^T$  对于$n\times n$实对称幂等">
+  <meta name="description" content="回归分析 注意此处的矩阵默认情况下是n*1的矩阵，即列向量  这里需要了解的地方：  数的平方用矩阵表示为向量乘以向量的转置，即$\sum x^2&#x3D;X^TX$  对称幂等矩阵有1.其平方等于自身 2.其转置等于自身 3.与$I$的加减仍是对称幂等矩阵 这三个性质  一个矩阵的转置乘以其自身得到的是一个对称幂等矩阵$X^TX$  $(AB)^T&#x3D;B^TA^T$  对于$n\tim">
 <meta property="og:type" content="article">
 <meta property="og:title" content="回归分析">
 <meta property="og:url" content="http://example.com/2022/10/05/%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90/index.html">
 <meta property="og:site_name" content="Timkuku">
-<meta property="og:description" content="回归分析 注意此处的矩阵默认情况下是n*1的矩阵，即列向量  这里需要了解的地方：  数的平方用矩阵表示为向量乘以向量的转置，即$\sum x^2&#x3D;X^TX$  对称幂等矩阵有1.其平方等于自身 2.其转置等于自身 3.与$I$的加减仍是对称幂等矩阵 这三个性质  一个矩阵的转置乘以其自身得到的是一个对称幂等矩阵$X^TX$  $(AB)^T&#x3D;B^TA^T$  对于$n\times n$实对称幂等">
+<meta property="og:description" content="回归分析 注意此处的矩阵默认情况下是n*1的矩阵，即列向量  这里需要了解的地方：  数的平方用矩阵表示为向量乘以向量的转置，即$\sum x^2&#x3D;X^TX$  对称幂等矩阵有1.其平方等于自身 2.其转置等于自身 3.与$I$的加减仍是对称幂等矩阵 这三个性质  一个矩阵的转置乘以其自身得到的是一个对称幂等矩阵$X^TX$  $(AB)^T&#x3D;B^TA^T$  对于$n\tim">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-10-05T12:31:09.846Z">
-<meta property="article:modified_time" content="2022-10-08T09:33:47.300Z">
+<meta property="article:modified_time" content="2022-10-11T14:02:57.930Z">
 <meta property="article:author" content="Liao">
 <meta property="article:tag" content="数据分析">
 <meta name="twitter:card" content="summary">
@@ -182,7 +182,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-10-08 17:33:47" itemprop="dateModified" datetime="2022-10-08T17:33:47+08:00">2022-10-08</time>
+                <time title="修改时间：2022-10-11 22:02:57" itemprop="dateModified" datetime="2022-10-11T22:02:57+08:00">2022-10-11</time>
               </span>
 
           
@@ -201,36 +201,34 @@
 </blockquote>
 <p>这里需要了解的地方：</p>
 <ul>
-<li><p>数的平方用矩阵表示为向量乘以向量的转置，即$\sum x^2=X^TX$</p>
+<li><p>数的平方用矩阵表示为向量乘以向量的转置，即$\sum x^2&#x3D;X^TX$</p>
 </li>
 <li><p>对称幂等矩阵有1.其平方等于自身 2.其转置等于自身 3.与$I$的加减仍是对称幂等矩阵 这三个性质</p>
 </li>
 <li><p>一个矩阵的转置乘以其自身得到的是一个对称幂等矩阵$X^TX$</p>
 </li>
-<li><p>$(AB)^T=B^TA^T$</p>
+<li><p>$(AB)^T&#x3D;B^TA^T$</p>
 </li>
 <li><p>对于$n\times n$实对称幂等矩阵$A$,$A$的秩等于$A$的迹</p>
 </li>
-<li><p>$\sum\limits_{i=1}^{n}y_i=(y_1+y_2+\cdots+y_n)$化为矩阵形式则变成</p>
+<li><p>$\sum\limits_{i&#x3D;1}^{n}y_i&#x3D;(y_1+y_2+\cdots+y_n)$化为矩阵形式则变成</p>
 
   $$
   \left(\begin{array}{1}y_1+y_2+\cdots+y_n\\y_1+y_2+\cdots+y_n\\\cdots\\y_1+y_2+\cdots+y_n\end{array}\right)=\left(\begin{array}{1}1 & 1 & \cdots & 1\\1 & 1 & \cdots & 1\\\cdots & \cdots & \cdots & \cdots\\1 & 1 & \cdots & 1\end{array}\right)\times Y=11^TY
   $$
-  
-</li>
+  </li>
 </ul>
 <p>记录一下推导思路：</p>
 <ul>
-<li><p>在日常生活中，会有一部分数据Y与$X<em>{1},X</em>{2}$,…有关，但是无法知道确切的关系，所以我们可以将问题转化为</p>
-<script type="math/tex; mode=display">
-Y=f(X_1,X_2,\cdots,X_{p-1})+\epsilon</script><p>特别情况下，当$f(X<em>1,X_2,\cdots,X</em>{p-1})$是$(X<em>1,X_2,\cdots,X</em>{p-1})$的线性函数时，可以表示为以下形式：</p>
+<li><p>在日常生活中，会有一部分数据Y与$X_{1},X_{2}$,…有关，但是无法知道确切的关系，所以我们可以将问题转化为<br>$$<br>Y&#x3D;f(X_1,X_2,\cdots,X_{p-1})+\epsilon<br>$$<br>特别情况下，当$f(X_1,X_2,\cdots,X_{p-1})$是$(X_1,X_2,\cdots,X_{p-1})$的线性函数时，可以表示为以下形式：</p>
 
   $$
   Y=\beta _0+\beta_1 X_1+\cdots+\beta_{p-1}X_{p-1}+\epsilon
   $$
   
+
 <p>此模型称为<strong>线性回归模型</strong>。如此重复，我们可以得到矩阵形式：</p>
-<p>$Y=X\beta +\epsilon$</p>
+<p>$Y&#x3D;X\beta +\epsilon$</p>
 </li>
 <li><p>利用矩阵记号，我们可以得出以下矩阵：</p>
 
@@ -245,88 +243,71 @@ Y=f(X_1,X_2,\cdots,X_{p-1})+\epsilon</script><p>特别情况下，当$f(X<em>1,X
 </li>
 <li><p>以上，我们可以推断出各种估计量：</p>
 <ul>
-<li><p>1、回归参数向量<strong>$\beta$</strong>的最小二乘估计(即选择$\beta$使误差平方和达到最小)</p>
-<p>误差平方和：$\epsilon^2=(Y-X\beta)^2$</p>
-<p>向量形式：$S(\beta)=\epsilon^{T}\epsilon=(Y-X\beta)^T(Y-X\beta)$</p>
-<p>使用求导的方式，使偏导等于0（类似于最大似然估计），即</p>
-<script type="math/tex; mode=display">
-\frac{\partial S(\beta)}{\partial \beta_k}=-2\sum\limits_{i=1}^{n}(y_i-\sum\limits_{j=0}^{p-1}\beta_jx_{ij})x_{ik}=0,k=0,1,\cdots,p-1</script><p>可以求得<strong>正规矩阵</strong></p>
-<script type="math/tex; mode=display">
-X^TX\beta=X^TY</script><p>则回归参数$\beta$的最小二乘估计为：</p>
-<script type="math/tex; mode=display">
-\hat{\beta}=(X^TX)^{-1}X^TY</script><p>将$\hat \beta=(\hat \beta<em>0,\hat \beta_1,\cdots,\hat \beta</em>{p-1})$代入到上面的线性回归方程并省略误差项，可以得到<strong>经验回归方程</strong>，或者叫做<strong>回归方程：</strong></p>
-<script type="math/tex; mode=display">
-\hat Y=\hat \beta_0+\hat \beta_1X_1+\hat \beta_2X_2+\cdots+\hat \beta_{p-1}X_{p-1}</script></li>
+<li><p>1、回归参数向量**$\beta$**的最小二乘估计(即选择$\beta$使误差平方和达到最小)</p>
+<p>误差平方和：$\epsilon^2&#x3D;(Y-X\beta)^2$</p>
+<p>向量形式：$S(\beta)&#x3D;\epsilon^{T}\epsilon&#x3D;(Y-X\beta)^T(Y-X\beta)$</p>
+<p>使用求导的方式，使偏导等于0（类似于最大似然估计），即<br>$$<br>\frac{\partial S(\beta)}{\partial \beta_k}&#x3D;-2\sum\limits_{i&#x3D;1}^{n}(y_i-\sum\limits_{j&#x3D;0}^{p-1}\beta_jx_{ij})x_{ik}&#x3D;0,k&#x3D;0,1,\cdots,p-1<br>$$<br>可以求得<strong>正规矩阵</strong><br>$$<br>X^TX\beta&#x3D;X^TY<br>$$<br>则回归参数$\beta$的最小二乘估计为：<br>$$<br>\hat{\beta}&#x3D;(X^TX)^{-1}X^TY<br>$$<br>将$\hat \beta&#x3D;(\hat \beta_0,\hat \beta_1,\cdots,\hat \beta_{p-1})$代入到上面的线性回归方程并省略误差项，可以得到<strong>经验回归方程</strong>，或者叫做<strong>回归方程：</strong><br>$$<br>\hat Y&#x3D;\hat \beta_0+\hat \beta_1X_1+\hat \beta_2X_2+\cdots+\hat \beta_{p-1}X_{p-1}<br>$$</p>
+</li>
 <li><p>2、误差方差$\sigma^2$的估计</p>
 <p>残差的意思为拟合值与观测值的差，这是由其定义，即残差包含那些不可表现出来的误差，所决定的。</p>
-<p>那么由上述的思路，我们从正规矩阵可以通过将自变量的各组观测值带入回归方程，得到Y的各拟合值：</p>
-<script type="math/tex; mode=display">
-\hat Y=X\hat \beta=X(X^TX)^{-1}X^TY=HY</script><p>或者可以干脆写出残差向量：</p>
-<script type="math/tex; mode=display">
-\hat \epsilon=Y-\hat Y=Y-HY=(I-H)Y</script><p>那么就可以得到<strong><em>SSE</em></strong>(Sum of Squares Error):</p>
-<script type="math/tex; mode=display">
-SSE=\sum\epsilon^2=\epsilon^T\epsilon</script><p>同样易得<strong><em>MSE</em></strong>(Means Squares Error):</p>
-<script type="math/tex; mode=display">
-MSE=\frac{SSE}{n-p}=\frac{\epsilon^T\epsilon}{n-p}</script><p>另外我们可以得到随机误差项$\epsilon$与方差$\sigma^2$的关系</p>
+<p>那么由上述的思路，我们从正规矩阵可以通过将自变量的各组观测值带入回归方程，得到Y的各拟合值：<br>$$<br>\hat Y&#x3D;X\hat \beta&#x3D;X(X^TX)^{-1}X^TY&#x3D;HY<br>$$<br>或者可以干脆写出残差向量：<br>$$<br>\hat \epsilon&#x3D;Y-\hat Y&#x3D;Y-HY&#x3D;(I-H)Y<br>$$<br>那么就可以得到<em><strong>SSE</strong></em>(Sum of Squares Error):<br>$$<br>SSE&#x3D;\sum\epsilon^2&#x3D;\epsilon^T\epsilon<br>$$<br>同样易得<em><strong>MSE</strong></em>(Means Squares Error):<br>$$<br>MSE&#x3D;\frac{SSE}{n-p}&#x3D;\frac{\epsilon^T\epsilon}{n-p}<br>$$<br>另外我们可以得到随机误差项$\epsilon$与方差$\sigma^2$的关系</p>
 </li>
 <li><p>3、离差平方和<strong>SST</strong>(Total Sum of Squares)</p>
-<p>离差平方和反应的是$y_1,y_2,……,y_n$与$\bar y=\frac 1n\sum y_i$的变化量，即</p>
-<script type="math/tex; mode=display">
-SST=\sum\limits_{i=1}^{n}(y_i-\bar y)^2</script></li>
+<p>离差平方和反应的是$y_1,y_2,……,y_n$与$\bar y&#x3D;\frac 1n\sum y_i$的变化量，即<br>$$<br>SST&#x3D;\sum\limits_{i&#x3D;1}^{n}(y_i-\bar y)^2<br>$$</p>
+</li>
 <li><p>4、回归平方和<strong>SSR</strong>(Regression Sum of Squares)</p>
-<p>回归平方和的意思是拟合值与均值之差的平方，即</p>
-<script type="math/tex; mode=display">
-SSR=\sum\limits_{i=1}^{n}(\hat y_i-\bar y)^2</script></li>
+<p>回归平方和的意思是拟合值与均值之差的平方，即<br>$$<br>SSR&#x3D;\sum\limits_{i&#x3D;1}^{n}(\hat y_i-\bar y)^2<br>$$</p>
+</li>
 </ul>
 </li>
-<li><p>从上面的几个估计量的含义，那么我们可以通过$X(X^TX)^{-1}X^T=H$这一中间过程推导以下矩阵记号：</p>
+<li><p>从上面的几个估计量的含义，那么我们可以通过$X(X^TX)^{-1}X^T&#x3D;H$这一中间过程推导以下矩阵记号：</p>
 <ul>
 <li>假设误差项$\epsilon\sim N(0,\sigma^2I)$</li>
-<li>由$X(X^TX)^{-1}X^T=H$，易得出H是一个<strong>n阶幂等对称矩阵</strong>（$HH=H$）。幂等对称矩阵的性质有<ul>
-<li>$H^2=H$</li>
-<li>$H^T=H$</li>
+<li>由$X(X^TX)^{-1}X^T&#x3D;H$，易得出H是一个<strong>n阶幂等对称矩阵</strong>（$HH&#x3D;H$）。幂等对称矩阵的性质有<ul>
+<li>$H^2&#x3D;H$</li>
+<li>$H^T&#x3D;H$</li>
 <li>$I-H$，若A是n阶对称幂等矩阵，那么$I-A$也是n阶对称幂等矩阵</li>
 <li>同理，我们也可以在下面的推导中发现$(I-\frac1n11^T)$也是幂等对称矩阵</li>
 </ul>
 </li>
-<li>由于第一条，所以$\sum\limits<em>{i=1}^n\hat \epsilon=\sum\limits</em>{i=1}^n(y<em>i-\hat y_i)=0$，所以$\bar y=\frac 1n\sum\limits</em>{i=1}^n\hat y<em>i$，可以推出$\sum\limits</em>{i=1}^n\hat \epsilon_i=1^T\hat \epsilon=1^T(I-H)Y=&gt;1^TY=1^THY=&gt;Y^TH^T=Y^T=&gt;Y^TH=Y^T$</li>
-<li>那么，我们可以开始推导了。</li>
+<li>由于第一条，所以$\sum\limits_{i&#x3D;1}^n\hat \epsilon&#x3D;\sum\limits_{i&#x3D;1}^n(y_i-\hat y_i)&#x3D;0$，所以$\bar y&#x3D;\frac 1n\sum\limits_{i&#x3D;1}^n\hat y_i$，可以推出$\sum\limits_{i&#x3D;1}^n\hat \epsilon_i&#x3D;1^T\hat \epsilon&#x3D;1^T(I-H)Y&#x3D;&gt;1^TY&#x3D;1^THY&#x3D;&gt;Y^TH^T&#x3D;Y^T&#x3D;&gt;Y^TH&#x3D;Y^T$</li>
+<li>那么，我们可以开始推导了。  
+    
+        $$
+        SSE=\sum\limits_{i=1}^{n} (y-y_i)^2=(Y-\hat Y)^T(Y-\hat Y)=(Y-X\hat \beta)^T(Y-X\hat \beta)=Y^T（1-H)^T(1-H)Y=Y^T(I-H)Y
+        $$
+    
+        $$
+        SSR=\sum\limits_{i=1}^{n}(\hat y_i-\bar y)^2=(\hat Y-\bar Y)^T(\hat Y-\bar Y)=\hat Y^T(I-\frac 1n11^T)^T(I-\frac 1n11^T)\hat Y=Y^TH(I-\frac 1n11^T)HY=Y^THY-Y^TH\frac 1n11^THY=Y^THY-Y^T\frac 1n11^TY=Y^T(H-\frac 1n J^T)Y
+        $$
+    
+        $$
+        SST=\sum\limits_{i=1}^n(y_i-\bar y)^2=(Y-\bar Y)^T(Y-\bar Y)=Y^T(I-\frac 1n11^T)^T(I-\frac 1n11^T)Y=Y^T(I-\frac 1n11^T)Y=Y^T(I-\frac 1nJ^T)Y
+        $$
+    
+<ul>
+<li>综合上面的推导过程，我们可以清楚地看出$SST&#x3D;SSE+SSR$</li>
 </ul>
 </li>
 </ul>
-<pre><code>  - $$
-    SSE=\sum\limits_&#123;i=1&#125;^&#123;n&#125; (y-y_i)^2=(Y-\hat Y)^T(Y-\hat Y)=(Y-X\hat \beta)^T(Y-X\hat \beta)=Y^T（1-H)^T(1-H)Y=Y^T(I-H)Y
-    $$
-
-  - $$
-    SSR=\sum\limits_&#123;i=1&#125;^&#123;n&#125;(\hat y_i-\bar y)^2=(\hat Y-\bar Y)^T(\hat Y-\bar Y)=\hat Y^T(I-\frac 1n11^T)^T(I-\frac 1n11^T)\hat Y=Y^TH(I-\frac 1n11^T)HY=Y^THY-Y^TH\frac 1n11^THY=Y^THY-Y^T\frac 1n11^TY=Y^T(H-\frac 1n J^T)Y
-    $$
-
-  - $$
-    SST=\sum\limits_&#123;i=1&#125;^n(y_i-\bar y)^2=(Y-\bar Y)^T(Y-\bar Y)=Y^T(I-\frac 1n11^T)^T(I-\frac 1n11^T)Y=Y^T(I-\frac 1n11^T)Y=Y^T(I-\frac 1nJ^T)Y
-    $$
-
-  - 综合上面的推导过程，我们可以清楚地看出$SST=SSE+SSR$
-</code></pre><ul>
+</li>
 <li><p>复相关系数$R$</p>
 <ul>
-<li>$R^2=\frac {SSR}{SST}=1-\frac {SSE}{SST}$当R值越大时，则说明$Y$与$X<em>1,X_2,\cdots,X</em>{p-1}$的线性关系越显著</li>
+<li>$R^2&#x3D;\frac {SSR}{SST}&#x3D;1-\frac {SSE}{SST}$当R值越大时，则说明$Y$与$X_1,X_2,\cdots,X_{p-1}$的线性关系越显著</li>
 </ul>
 </li>
-</ul>
-<ul>
 <li><p>线性回归关系的显著性检验(整体的一个检验)[F]</p>
 <ul>
 <li><p>首先知道假设如下：</p>
 <ul>
-<li>$H<em>0：\beta_1=\beta_2=\cdots=\beta</em>{p-1}=0$</li>
+<li>$H_0：\beta_1&#x3D;\beta_2&#x3D;\cdots&#x3D;\beta_{p-1}&#x3D;0$</li>
 <li>$H_1：存在1\le i\le p-1,使\beta_i \ne 0$</li>
 </ul>
 </li>
 <li><p>构建检验统计量$F$如下：</p>
 <ul>
-<li>$F=\frac {SSR/(p-1)}{SSE/(n-p)}=\frac{MSR}{MSE}$</li>
-<li>$F$的值越大，说明自变量的线性函数值所解释的变化量越多，即$Y与X<em>1,X_2,\cdots,X</em>{P-1}$线性关系越显著</li>
+<li>$F&#x3D;\frac {SSR&#x2F;(p-1)}{SSE&#x2F;(n-p)}&#x3D;\frac{MSR}{MSE}$</li>
+<li>$F$的值越大，说明自变量的线性函数值所解释的变化量越多，即$Y与X_1,X_2,\cdots,X_{P-1}$线性关系越显著</li>
 </ul>
 </li>
 </ul>
@@ -335,7 +316,7 @@ SSR=\sum\limits_{i=1}^{n}(\hat y_i-\bar y)^2</script></li>
 <ul>
 <li><p>在线性回归关系的显著性检验是对回归方程整体性的一个检验，如果拒绝$H_0$，则意味着$Y$显著的相关与线性函数，但不是每一个自变量均通过线性函数对$Y$产生显著性的影响，所以需要对每一个自变量逐一进行显著性检验（考虑是否为0），由统计量t值（以后再补上原理）和相应的检验p值</p>
 </li>
-<li><p>对于给定的显著性水平$\alpha$,若$p<em>{0k}\lt \alpha$，则拒绝$H</em>{0k}$，认为$X_{k}$对$Y$的影响<strong>显著</strong>；否则相反。</p>
+<li><p>对于给定的显著性水平$\alpha$,若$p_{0k}\lt \alpha$，则拒绝$H_{0k}$，认为$X_{k}$对$Y$的影响<strong>显著</strong>；否则相反。</p>
 </li>
 </ul>
 </li>
@@ -352,17 +333,17 @@ SSR=\sum\limits_{i=1}^{n}(\hat y_i-\bar y)^2</script></li>
 </li>
 <li><p>与回归系数有关的假设检验的一般方法</p>
 <ul>
-<li><p>在上面的描述中，我们仅从$\beta<em>1,\beta_2,\cdots,\beta</em>{p-1}$是否全部为0或者部分为0这种考虑是不够的，我们需要考虑这些回归系数是否都满足特定的线性关系，所以给出一个统一的方法</p>
+<li><p>在上面的描述中，我们仅从$\beta_1,\beta_2,\cdots,\beta_{p-1}$是否全部为0或者部分为0这种考虑是不够的，我们需要考虑这些回归系数是否都满足特定的线性关系，所以给出一个统一的方法</p>
 </li>
 <li><p>检验统计量的构造及其零分布</p>
 <ul>
-<li>全模型    指能够有效拟合所给数据的线性回归模型，一般将线性关系显著且包含较多自变量的线形回归模型作为全模型[残差平方和$SSE(F)$,自由度$f_F$]</li>
-<li>约简模型    将线性回归所满足的线性关系<strong>假设</strong>带入全模型所得到的回归模型[$SSE(R),f_R$]</li>
+<li>全模型	指能够有效拟合所给数据的线性回归模型，一般将线性关系显著且包含较多自变量的线形回归模型作为全模型[残差平方和$SSE(F)$,自由度$f_F$]</li>
+<li>约简模型	将线性回归所满足的线性关系<strong>假设</strong>带入全模型所得到的回归模型[$SSE(R),f_R$]</li>
 <li>$H_0:回归系数的某些线性约束为真$</li>
 <li>$H_1:回归系数的该线性约束不真$</li>
 <li>构造统计量F(原理以后补上)<ul>
-<li>$F=\frac{[SSE(R)-SSE(F)]/(f_R-f_F)}{SSE(F)/f_F}\sim F(f_R-f_F,f_F)$</li>
-<li>$p<em>0=P</em>{H0}(F\ge F_0)=(F(f_R-f_F,f_F)\ge F_0)$,<strong>若$p_0&lt;\alpha$，则拒绝$H_0$，认为该约束不真</strong></li>
+<li>$F&#x3D;\frac{[SSE(R)-SSE(F)]&#x2F;(f_R-f_F)}{SSE(F)&#x2F;f_F}\sim F(f_R-f_F,f_F)$</li>
+<li>$p_0&#x3D;P_{H0}(F\ge F_0)&#x3D;(F(f_R-f_F,f_F)\ge F_0)$,<strong>若$p_0&lt;\alpha$，则拒绝$H_0$，认为该约束不真</strong></li>
 </ul>
 </li>
 </ul>
@@ -372,39 +353,39 @@ SSR=\sum\limits_{i=1}^{n}(\hat y_i-\bar y)^2</script></li>
 </ul>
 <p>有上面的各种检验方法，我们可以得出以下总结：</p>
 <h2 id="回归系数的一般检验方法"><a href="#回归系数的一般检验方法" class="headerlink" title="回归系数的一般检验方法"></a>回归系数的一般检验方法</h2><blockquote>
-<p>$p<em>0=P</em>{H0}(F\ge F_0)=(F(f_R-f_F,f_F)\ge F_0)$,<strong>若$p_0&lt;\alpha$，则拒绝$H_0$，认为该约束不真</strong></p>
+<p>$p_0&#x3D;P_{H0}(F\ge F_0)&#x3D;(F(f_R-f_F,f_F)\ge F_0)$,<strong>若$p_0&lt;\alpha$，则拒绝$H_0$，认为该约束不真</strong></p>
 </blockquote>
 <p>1.线性回归关系的显著性检验</p>
 <blockquote>
-<p>即考虑$H<em>0:\beta_1=\beta_2=\cdots=\beta</em>{p-1}=0 \leftrightarrow H_1:存在1\le i\le p-1,使\beta_i \ne 0$</p>
+<p>即考虑$H_0:\beta_1&#x3D;\beta_2&#x3D;\cdots&#x3D;\beta_{p-1}&#x3D;0 \leftrightarrow H_1:存在1\le i\le p-1,使\beta_i \ne 0$</p>
 </blockquote>
 <p>原理略，</p>
-<p>约简模型为$Y=\beta_0+\epsilon$，易得$SSE(R)=SST,f_R=n-1$;</p>
-<p>全模型的$SSE(F)=SSE,f_F=n-p$</p>
+<p>约简模型为$Y&#x3D;\beta_0+\epsilon$，易得$SSE(R)&#x3D;SST,f_R&#x3D;n-1$;</p>
+<p>全模型的$SSE(F)&#x3D;SSE,f_F&#x3D;n-p$</p>
 <ul>
-<li>构造出$F=\frac{(SST-SSE)/(p-1)}{SSE/(n-p)}=\frac{MSR}{MSE}\sim F(p-1,n-p)$</li>
+<li>构造出$F&#x3D;\frac{(SST-SSE)&#x2F;(p-1)}{SSE&#x2F;(n-p)}&#x3D;\frac{MSR}{MSE}\sim F(p-1,n-p)$</li>
 </ul>
 <p>2.检验某个回归系数是否为0</p>
 <blockquote>
-<p>即考虑$H<em>{0k}:\beta</em>{k}=0 \leftrightarrow H_{1k}:\beta_k\ne 0$</p>
+<p>即考虑$H_{0k}:\beta_{k}&#x3D;0 \leftrightarrow H_{1k}:\beta_k\ne 0$</p>
 </blockquote>
-<p>约简模型$Y=\beta<em>0+\beta_1X_1+\beta_2X_2+\cdots+\beta</em>{k-1}X<em>{k-1}+\beta</em>{k+1}X<em>{k+1}+\cdots+\beta</em>{p-1}X_{p-1},f_R=n-(p-1)$；</p>
-<p>全模型$SSE(F)=SSE,f_F=n-p$</p>
+<p>约简模型$Y&#x3D;\beta_0+\beta_1X_1+\beta_2X_2+\cdots+\beta_{k-1}X_{k-1}+\beta_{k+1}X_{k+1}+\cdots+\beta_{p-1}X_{p-1},f_R&#x3D;n-(p-1)$；</p>
+<p>全模型$SSE(F)&#x3D;SSE,f_F&#x3D;n-p$</p>
 <ul>
-<li>构造出$F_k=\frac{SSE(R)-SSE}{MSE}\sim F(1,n-p)$</li>
+<li>构造出$F_k&#x3D;\frac{SSE(R)-SSE}{MSE}\sim F(1,n-p)$</li>
 </ul>
 <p>3.检验几个回归系数是否同时为0</p>
 <blockquote>
-<p>即考虑$H<em>0:\beta_q=\beta</em>{q+1}=\cdots=\beta_{p-1}=0$</p>
+<p>即考虑$H_0:\beta_q&#x3D;\beta_{q+1}&#x3D;\cdots&#x3D;\beta_{p-1}&#x3D;0$</p>
 </blockquote>
-<p>约简模型$Y=\beta<em>0+\beta_1X_1+\beta_2X_2+\cdots+\beta</em>{q1}X_{q-1}+\epsilon,f_R=n-q$;</p>
-<p>全模型$SSE(F)=SSE,f_F=n-p$</p>
+<p>约简模型$Y&#x3D;\beta_0+\beta_1X_1+\beta_2X_2+\cdots+\beta_{q1}X_{q-1}+\epsilon,f_R&#x3D;n-q$;</p>
+<p>全模型$SSE(F)&#x3D;SSE,f_F&#x3D;n-p$</p>
 <ul>
-<li>构造出$F=\frac{[SSE(R)-SSE]/(n-q)}{MSE}\sim F(p-q,n-p)$</li>
+<li>构造出$F&#x3D;\frac{[SSE(R)-SSE]&#x2F;(n-q)}{MSE}\sim F(p-q,n-p)$</li>
 </ul>
 <p>4.其他检验</p>
 <blockquote>
-<p>例如什么$H_0:\beta_1=\beta_2$或者$H_0:\beta_3=2且\beta_5=4$这类问题大致一样</p>
+<p>例如什么$H_0:\beta_1&#x3D;\beta_2$或者$H_0:\beta_3&#x3D;2且\beta_5&#x3D;4$这类问题大致一样</p>
 </blockquote>
 <p>因此我们得到如下：</p>
 <h2 id="检验步骤"><a href="#检验步骤" class="headerlink" title="检验步骤"></a>检验步骤</h2><ul>
