@@ -174,6 +174,13 @@
 
               <time title="创建时间：2022-10-15 22:29:16" itemprop="dateCreated datePublished" datetime="2022-10-15T22:29:16+08:00">2022-10-15</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-10-23 15:18:30" itemprop="dateModified" datetime="2022-10-23T15:18:30+08:00">2022-10-23</time>
+              </span>
 
           
 
@@ -186,7 +193,28 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="sas基本操作"><a href="#sas基本操作" class="headerlink" title="sas基本操作"></a>sas基本操作</h1><h2 id="SAS语句"><a href="#SAS语句" class="headerlink" title="SAS语句"></a>SAS语句</h2><ul>
+          <h1 id="一些笔记"><a href="#一些笔记" class="headerlink" title="一些笔记"></a>一些笔记</h1><ul>
+<li><p>取子集方法：</p>
+<ul>
+<li>原始数据中可以使用多条input;</li>
+<li>sas数据集中可以在DATA步使用IF;</li>
+<li>过程步可以使用WHERE语句</li>
+<li>OUTPUT语句</li>
+<li>数据集选项中的WHERE&#x3D;选项</li>
+</ul>
+</li>
+<li><p>原假设：</p>
+<ul>
+<li>t检验：没有显著差异</li>
+<li>正态性检验：服从正态分布</li>
+<li>方差齐性检验：方差相等</li>
+<li>平均数：平均数相等</li>
+</ul>
+</li>
+<li><p>关于通配符：SAS好像是没有通配符的，但是可以用类似于sql语句那样用通配符</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">data </span>xxx;</span><br><span class="line">	<span class="keyword">set</span> xxxx;</span><br><span class="line">	<span class="keyword">where</span> xxx <span class="keyword">like</span> <span class="string">&quot;%adb%&quot;</span>;</span><br><span class="line"><span class="keyword">run;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="sas基本操作"><a href="#sas基本操作" class="headerlink" title="sas基本操作"></a>sas基本操作</h1><h2 id="SAS语句"><a href="#SAS语句" class="headerlink" title="SAS语句"></a>SAS语句</h2><ul>
 <li><p>每一条sas语句都由分号结尾</p>
 </li>
 <li><p>注释</p>
@@ -203,7 +231,8 @@
 </ul>
 </li>
 <li>缺失值<ul>
-<li>字符型</li>
+<li>字符型：是个空格</li>
+<li>数值型：是个小数点</li>
 </ul>
 </li>
 <li>命名规则<ul>
@@ -244,9 +273,71 @@
 <h1 id="导入数据"><a href="#导入数据" class="headerlink" title="导入数据"></a>导入数据</h1><h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="内部数据"><a href="#内部数据" class="headerlink" title="内部数据"></a>内部数据</h3><ul>
 <li>在sas程序中输入原始数据：可以使用CARDS或者datalines语句。注意cards与datalines应该是data语句最后一个语句，后面的全部视为数据</li>
 </ul>
-<h3 id="外部数据"><a href="#外部数据" class="headerlink" title="外部数据"></a>外部数据</h3><h4 id="INFILE语句"><a href="#INFILE语句" class="headerlink" title="INFILE语句"></a>INFILE语句</h4>  <figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">infile</span><span class="string">&#x27;/home/liao/xxx&#x27;</span> LRECL=2200;	<span class="comment">/*读入xxx文件数据的2200行*/</span></span><br><span class="line"><span class="comment">/*infile语句有以下的一些options*/</span></span><br><span class="line">FIRSTOBS=n		<span class="comment">/*从第n行开始读取数据*/</span></span><br><span class="line">OBS=n			<span class="comment">/*读到第n行停止读取数据*/</span></span><br><span class="line">MISSOVER		<span class="comment">/*读完一行数据后先不要转到下一行，而是先对没有值输入的变量填上缺失值*/</span></span><br><span class="line">TURNOVER		<span class="comment">/*要么到达一条数据的尽头，要么走到变量设定的范围，不会走下一行*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*读取分隔文件*/</span></span><br><span class="line">DLM/<span class="keyword">DELIMITER</span>/DLMSTR(分隔符是字符串时用)=		<span class="comment">/*确定分隔符*/</span></span><br><span class="line">DSD <span class="comment">/*（分隔符敏感数据）1.忽略引号括起来的分隔符 2.不会读取引号 3.两个连续的分隔符视为缺失值*/</span></span><br><span class="line">CSV 			<span class="comment">/*(逗号分隔值文件)，以逗号作为分隔符*/</span></span><br></pre></td></tr></table></figure>
+<h3 id="外部数据"><a href="#外部数据" class="headerlink" title="外部数据"></a>外部数据</h3><h4 id="INFILE语句"><a href="#INFILE语句" class="headerlink" title="INFILE语句"></a>INFILE语句</h4>  <figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">infile</span><span class="string">&#x27;/home/liao/xxx&#x27;</span> LRECL=2200;	<span class="comment">/*读入xxx文件数据的2200行*/</span></span><br><span class="line"><span class="comment">/*infile语句有以下的一些options*/</span></span><br><span class="line">FIRSTOBS=n		<span class="comment">/*从第n行开始读取数据*/</span></span><br><span class="line">OBS=n			<span class="comment">/*读到第n行停止读取数据*/</span></span><br><span class="line">MISSOVER		<span class="comment">/*补充填上缺失值*/</span></span><br><span class="line">TURNOVER		<span class="comment">/*要么到达一条数据的尽头，要么走到变量设定的范围，不会走下一行*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*读取分隔文件*/</span></span><br><span class="line">DLM/<span class="keyword">DELIMITER</span>/DLMSTR(分隔符是字符串时用)=		<span class="comment">/*确定分隔符*/</span></span><br><span class="line">DSD <span class="comment">/*（分隔符敏感数据）1.忽略引号括起来的分隔符 2.不会读取引号 3.两个连续的分隔符视为缺失值*/</span></span><br><span class="line">CSV 			<span class="comment">/*(逗号分隔值文件)，以逗号作为分隔符*/</span></span><br></pre></td></tr></table></figure>
 
-<h4 id="Import过程读取分隔文件"><a href="#Import过程读取分隔文件" class="headerlink" title="Import过程读取分隔文件"></a>Import过程读取分隔文件</h4><h4 id="INPUT"><a href="#INPUT" class="headerlink" title="INPUT"></a>INPUT</h4><ul>
+<h4 id="Proc-import过程读取分隔文件"><a href="#Proc-import过程读取分隔文件" class="headerlink" title="Proc import过程读取分隔文件"></a>Proc import过程读取分隔文件</h4><ul>
+<li><p>import语句可以自动读取前20行，并且自动确定变量类型；将两个连续的分隔符作为缺失值；读取引号的中的数据；分配缺失值</p>
+</li>
+<li><p>一般形式</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">proc import </span>datafile=<span class="string">&#x27;file-name&#x27;</span> <span class="keyword">out</span>=<span class="string">&#x27;data-name&#x27;</span></span><br><span class="line">	 dbms=csv/tab/dlm... <span class="keyword">REPLACE</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>说明：</p>
+<ul>
+<li><p>dbms选项有很多种选择，如 CSV、TAB、ACCESS、XLSX、XLS、EXCEL、JMP、DTA、SPSS 等</p>
+</li>
+<li><table>
+<thead>
+<tr>
+<th>Identify</th>
+<th>Output data source</th>
+<th>Extension</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>csv</td>
+<td>逗号分隔</td>
+<td>.csv</td>
+</tr>
+<tr>
+<td>dlm</td>
+<td>制表符和逗号以外的分隔符分隔</td>
+<td></td>
+</tr>
+<tr>
+<td>jmp</td>
+<td>jmp文件</td>
+<td>.jmp</td>
+</tr>
+<tr>
+<td>tab</td>
+<td>制表符分隔</td>
+<td>.tab</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+</li>
+<li><p>replace:如果已经有了与out&#x3D;’’相同名的数据集，那么可以使用replace来覆盖原有的数据集</p>
+</li>
+<li><p>可选语句</p>
+<ul>
+<li>DATAROWS &#x3D; n		从第n行开始读取数据</li>
+<li>DELIMITER &#x3D; ‘<em>delimiter-character</em>‘        DLM文件的分隔符，默认是空格</li>
+<li>GETNAMES &#x3D; yes&#x2F;no    					是否从数据的第一行读取变量名</li>
+<li>GUESSINGROW &#x3D; n						使用n行来确定变量名</li>
+<li>Sheet &#x3D; ‘sheet-name$UL:LR’        读取的xlsx文件的工作表的名字以及单元格范围<ul>
+<li>MIXED &#x3D; yes							当有一列是字符型与数字型数据都有时，可以用这个语句来将数字型转变为字符型</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="INPUT"><a href="#INPUT" class="headerlink" title="INPUT"></a>INPUT</h4><ul>
 <li><p>读取空格隔开的数据</p>
 <figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">input</span> a b $ c;			<span class="comment">/*需要留意一下`逐条处理观测`这一原则来决定加不加@@*/</span></span><br></pre></td></tr></table></figure>
 </li>
@@ -294,6 +385,776 @@
 </ul>
 <h5 id="读取某一部分数据（-）"><a href="#读取某一部分数据（-）" class="headerlink" title="读取某一部分数据（@）"></a>读取某一部分数据（@）</h5><ul>
 <li>上面的单尾@</li>
+</ul>
+<h1 id="sas数据集"><a href="#sas数据集" class="headerlink" title="sas数据集"></a>sas数据集</h1><h2 id="临时数据集与永久数据集"><a href="#临时数据集与永久数据集" class="headerlink" title="临时数据集与永久数据集"></a>临时数据集与永久数据集</h2><h3 id="数据集名称"><a href="#数据集名称" class="headerlink" title="数据集名称"></a>数据集名称</h3><ul>
+<li>一般都有两级名称，如<code>aaa.bbb</code>，其中，aaa为逻辑库引用名(libref)，bbb为该逻辑库中数据集名称，是唯一的</li>
+<li>如果仅仅指定一级数据集名称，那么就是临时的；如果指定了二级数据集名称（并且逻辑库引用名不为work），那么该逻辑库就是永久的</li>
+</ul>
+<h3 id="使用libname使用永久数据集"><a href="#使用libname使用永久数据集" class="headerlink" title="使用libname使用永久数据集"></a>使用libname使用永久数据集</h3><ul>
+<li><p>一般格式：</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">LIBNAME</span> libref <span class="string">&#x27;/home/liao/xxx&#x27;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>先指定逻辑库引用名，然后引号内是想要创建的永久数据集的所在文件夹</p>
+</li>
+<li><p>注意，引号内的文件路径下不一定要有文件，因为可以在data步中导入其他文件中的数据来保存到xxx逻辑库中的数据集</p>
+</li>
+</ul>
+<h3 id="读取永久数据集"><a href="#读取永久数据集" class="headerlink" title="读取永久数据集"></a>读取永久数据集</h3><ul>
+<li><pre><code class="sas">libname example &#39;/home/liao/xxx&#39;;
+PROC PRINT DATA=example;
+RUN;
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 通过直接引用使用永久sas数据集</span><br><span class="line"></span><br><span class="line">- ```sas</span><br><span class="line">  DATA &#x27;/home/liao/xxx&#x27;;		/*xxx在文件夹中后缀是.sas7bdat*/</span><br><span class="line">  	INFILE &#x27;/home/liao/a/t.txt&#x27;</span><br><span class="line">  	INPUT ...</span><br><span class="line">  RUN;</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+<li><p>没有指定逻辑库引用名，sas会自动帮你补上libref</p>
+</li>
+</ul>
+<h3 id="通过直接引用读取永久sas数据集"><a href="#通过直接引用读取永久sas数据集" class="headerlink" title="通过直接引用读取永久sas数据集"></a>通过直接引用读取永久sas数据集</h3><ul>
+<li>&#96;&#96;&#96;sas<br>PROC PRINT DATA&#x3D;’&#x2F;home&#x2F;liao&#x2F;a’;		&#x2F;<em>a在文件夹中后缀是.sas7bdat</em>&#x2F;<br>RUN;<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 列出SAS数据集中的内容</span><br><span class="line"></span><br><span class="line">- ```sas</span><br><span class="line">  PROC CONTENTS DATA=sashelp.xxx;</span><br><span class="line">  run;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="使用数据"><a href="#使用数据" class="headerlink" title="使用数据"></a>使用数据</h1><blockquote>
+<p>以下内容都在DATA步进行操作</p>
+</blockquote>
+<h2 id="创建与重定义变量"><a href="#创建与重定义变量" class="headerlink" title="创建与重定义变量"></a>创建与重定义变量</h2><ul>
+<li>与很多编程语言类似，如<code>a=a+10</code>等可以用新值覆盖旧值</li>
+<li>创建新值也很了然，直接<code>a=xxx</code>就ok了</li>
+</ul>
+<h2 id="使用SAS函数"><a href="#使用SAS函数" class="headerlink" title="使用SAS函数"></a>使用SAS函数</h2><ul>
+<li>与很多编程语言类似，<code>变量=函数名（参数，参数）</code></li>
+<li>很多函数如<code>MEAN()、DAY()、UPCASE()</code>等等</li>
+</ul>
+<h2 id="常用sas字符型函数"><a href="#常用sas字符型函数" class="headerlink" title="常用sas字符型函数"></a>常用sas字符型函数</h2><ul>
+<li>见89页</li>
+</ul>
+<h2 id="常用SAS数值型函数"><a href="#常用SAS数值型函数" class="headerlink" title="常用SAS数值型函数"></a>常用SAS数值型函数</h2><ul>
+<li>见91页</li>
+</ul>
+<h2 id="使用IF-THEN-x2F-ELSE-x2F-IF语句"><a href="#使用IF-THEN-x2F-ELSE-x2F-IF语句" class="headerlink" title="使用IF-THEN&#x2F;ELSE&#x2F;IF语句"></a>使用IF-THEN&#x2F;ELSE&#x2F;IF语句</h2><ul>
+<li><pre><code class="sas">IF conditions THEN action;
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">其中conditions可以由以下来判断</span><br><span class="line"></span><br><span class="line">- 大小比较，与LATEX的语法类似</span><br><span class="line"></span><br><span class="line">- IN运算符，</span><br><span class="line"></span><br><span class="line">  ```sas</span><br><span class="line">  IF model IN (&#x27;MODEL T&#x27;,&#x27;MODEL X&#x27;) then xxx</span><br></pre></td></tr></table></figure>
+
+  判断变量model中的值如果等于MODEL T或者MODEL X则进行操作处理
+
+- AND和OR也可以使用
+</code></pre>
+</li>
+<li><p>&#96;&#96;&#96;sas<br>IF conditions THEN action;<br>ELSE IF conditions THEN action;<br>ELSE action;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  其实与其他编程语言十分类似</span><br><span class="line"></span><br><span class="line">- ```sas</span><br><span class="line">  IF sex=&#x27;f&#x27;;		/*单单一句就可以，如果表达式为真，那么继续执行data下面的语句；如果是假的，那么停止执行data下面的语句，继续下一条观测处理*/</span><br><span class="line">  IF sex=&#x27;f&#x27; THEN DELETE;		/*与上面相反，表达式为真的话，删除它，开始下一条观测到处理*/</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="使用SAS日期"><a href="#使用SAS日期" class="headerlink" title="使用SAS日期"></a>使用SAS日期</h2><h3 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h3><ul>
+<li><p>格式化输入</p>
+<ul>
+<li><p>ANYDTDTEw.	可以读取几乎所有日期格式</p>
+<ul>
+<li><p>设置默认的输入格式</p>
+<p><code>YEARCUTOFF = 1950</code>指定sas数据为1950年后的一百年时间里</p>
+</li>
+<li><p>表达式中的日期</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DATE = CheckDate + 21;		<span class="comment">/*CheckDate的三周后*/</span></span><br><span class="line">DATE = <span class="string">&#x27;22APR2022&#x27;</span>D;		<span class="comment">/*指定日期，记得单引号和字母D*/</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>函数</p>
+</li>
+</ul>
+<h3 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h3><ul>
+<li><pre><code class="sas">FORMAT BIRTHDAY WORDDATE18.;	/*以WORDDATE18.的格式输出日期*/
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 常见日期输入输出格式</span><br><span class="line"></span><br><span class="line">- 见102页</span><br><span class="line"></span><br><span class="line">## 使用retain和求和语句</span><br><span class="line"></span><br><span class="line">&gt; sas读取数据时，由于是逐条处理观测，所以每处理完一条观测，那么就会回到data步开头进行下一条观测的处理，此时所有的变量的值都会变为缺失值</span><br><span class="line"></span><br><span class="line">- RETAIN语句：保留上次迭代的变量的值，注意通常使用情况下`retain variable`中的变量不是原始数据中的变量，而是如`retain c;c=MAX(c,b)`中的c变量一样，新建一个变量</span><br><span class="line">- 求和语句：也保留上次迭代的变量，但一般只适用于累加这种情况，如`a+b`中的b是原有数据中存在的变量，a是新的变量。！注意，新变量可以直接用而不需要先声明，默认是缺失值</span><br><span class="line"></span><br><span class="line">## 利用数组简化程序</span><br><span class="line"></span><br><span class="line">- ```sas</span><br><span class="line">  ARRAY name (n) variable-list;	/*ARRAY命令，记得latex吗？name是数组名字，n是数组变量个数，后面是变量名列表，其中变量的数量与n一致*/</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+<li><p>数组只在DATA步存在，读取变量名列表中的方法也很像其他编程语言，name(1)、name(2)等</p>
+</li>
+<li><p>可以使用</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">do</span> i=1 to 5;</span><br><span class="line">	<span class="keyword">IF</span> xxx <span class="keyword">THEN</span> xxx;</span><br><span class="line"><span class="keyword">END</span>;</span><br></pre></td></tr></table></figure>
+
+<p>搭配使用</p>
+</li>
+</ul>
+<h2 id="变量名快捷输入"><a href="#变量名快捷输入" class="headerlink" title="变量名快捷输入"></a>变量名快捷输入</h2><figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">input</span> a1-a4;			<span class="comment">/*等价于*/</span><span class="keyword">input</span> a1 a2 a3 a4;</span><br><span class="line"><span class="keyword">put</span> <span class="keyword">x</span> c v e;			<span class="comment">/*等价于*/</span><span class="keyword">put</span> <span class="keyword">x</span>--e;			<span class="comment">/*只有知道内部变量的顺序时才可以这样用*/</span></span><br><span class="line">a=<span class="meta">sum</span>(DogA,DogFood,DogT);<span class="comment">/*等价于*/</span>a=<span class="meta">sum</span>(OF Dog:);</span><br><span class="line"><span class="literal">_ALL_</span> <span class="comment">/*所有变量*/</span> <span class="literal">_CHARACTER_</span> <span class="comment">/*所有字符型变量*/</span> <span class="literal">_NUMERIC_</span> <span class="comment">/*所有数值变量*/</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="排序打印汇总数据"><a href="#排序打印汇总数据" class="headerlink" title="排序打印汇总数据"></a>排序打印汇总数据</h1><h2 id="SAS过程"><a href="#SAS过程" class="headerlink" title="SAS过程"></a>SAS过程</h2><h3 id="PROC语句"><a href="#PROC语句" class="headerlink" title="PROC语句"></a>PROC语句</h3><ul>
+<li>一看就懂</li>
+</ul>
+<h3 id="BY语句"><a href="#BY语句" class="headerlink" title="BY语句"></a>BY语句</h3><ul>
+<li>仅在PROC SORT中必须，按顺序排列观测</li>
+</ul>
+<h3 id="TITILE和FOOTNOTE语句"><a href="#TITILE和FOOTNOTE语句" class="headerlink" title="TITILE和FOOTNOTE语句"></a>TITILE和FOOTNOTE语句</h3><ul>
+<li>标题与在页面下面的标题</li>
+<li><code>TITLE;</code>取消所有标题</li>
+</ul>
+<h3 id="LABEL语句"><a href="#LABEL语句" class="headerlink" title="LABEL语句"></a>LABEL语句</h3><ul>
+<li><p>为变量名建立标签，默认情况下sas是将变量名作为变量的标签</p>
+</li>
+<li><p>&#96;&#96;&#96;sas<br>LABEL a &#x3D; ‘xxx’;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 定型输出</span><br><span class="line"></span><br><span class="line">### 输出数据集</span><br><span class="line"></span><br><span class="line">- `ODS OUTPUT`语句，见后面总结</span><br><span class="line"></span><br><span class="line">## 使用WHERE语句建立子集</span><br><span class="line"></span><br><span class="line">&gt; 前文取子集IF语句只能在DATA步使用，但是Where语句在DATA和PROC步都可以使用</span><br><span class="line"></span><br><span class="line">- Where conditions，conditions见117页，其中有常见的四则运算和`IS NOT MISSING`和`BETWEEN AND`和`CONTAINS`等判断语句</span><br><span class="line"></span><br><span class="line">## 使用PROC SORT排序</span><br><span class="line"></span><br><span class="line">- 基本形式</span><br><span class="line"></span><br><span class="line">  ```sas</span><br><span class="line">  PROC SORT;</span><br><span class="line">  By variable-list; </span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="控制输入输出数据集"><a href="#控制输入输出数据集" class="headerlink" title="控制输入输出数据集"></a>控制输入输出数据集</h3><ul>
+<li><code>DATA=</code>和<code>OUT=</code>，指定输入输出数据集</li>
+<li><code>NODUPKEY</code>删除具有相同值的BY变量的观测值，相当于mysql中的排序后的主键，有序且唯一；<code>BUPKEY=data-set</code>将删除的观测输出的特定数据集</li>
+</ul>
+<h3 id="升序降序"><a href="#升序降序" class="headerlink" title="升序降序"></a>升序降序</h3><ul>
+<li>默认升序，降序使用<code>DESCENDING</code></li>
+</ul>
+<h2 id="更改字符数据的排序"><a href="#更改字符数据的排序" class="headerlink" title="更改字符数据的排序"></a>更改字符数据的排序</h2><ul>
+<li>大部分系统使用ASCII码对字符进行排序，从低到高为空格、数字、大写字母、小写字母</li>
+<li>使用<code>SORTSEQ=ASCII</code>或者<code>SORTSEQ=EBCDIC</code>改变设定</li>
+</ul>
+<h3 id="语义排序"><a href="#语义排序" class="headerlink" title="语义排序"></a>语义排序</h3><ul>
+<li>&#96;&#96;&#96;sas<br>PROC SORT SORTSEQ &#x3D; LINGUISTIC (STRENGTH &#x3D; PRIMARY);	&#x2F;<em>忽略大小写排序</em>&#x2F;<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 对字符型数据中的数字进行排序时，可以用</span><br><span class="line"></span><br><span class="line">  ```sas</span><br><span class="line">  PROC SORT SORTSEQ = LINGUISTIC (NUMERIC_COLLATION = ON);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="使用PROC-PRINT过程步"><a href="#使用PROC-PRINT过程步" class="headerlink" title="使用PROC PRINT过程步"></a>使用PROC PRINT过程步</h2><ul>
+<li><pre><code class="sas">PROC PRINT DATA=XXX BY XXX ID variable-list;
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 输出格式</span><br><span class="line"></span><br><span class="line">- | 字符      | 数值      | 日期     |</span><br><span class="line">  | --------- | --------- | -------- |</span><br><span class="line">  | $formatw. | formatw.d | formatw. |</span><br><span class="line"></span><br><span class="line">- $代表字符性变量，format为输出格式的名称，w为包含小数点的总位宽，d是小数点位数</span><br><span class="line"></span><br><span class="line">### FORMAT语句</span><br><span class="line"></span><br><span class="line">- ```sas</span><br><span class="line">  FORMAT VAR1 VAR2 格式 VAR3 VAR4 格式;</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+<li><p>可以在DATA步（永久）和PROC步（临时）使用</p>
+</li>
+</ul>
+<h3 id="PUT语句"><a href="#PUT语句" class="headerlink" title="PUT语句"></a>PUT语句</h3><ul>
+<li><p>与FORMAT语句类似</p>
+</li>
+<li><p>&#96;&#96;&#96;sas<br>PUT VAR1 格式 VAR2 格式 var3 格式;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 标准的输出格式</span><br><span class="line"></span><br><span class="line">- 见127</span><br><span class="line"></span><br><span class="line">## 使用PROC FORMAT创建自己的格式和编写简单的自定义报表</span><br><span class="line"></span><br><span class="line">- 详情见131、132、133</span><br><span class="line"></span><br><span class="line">## 使用PROC MEANS汇总数据</span><br><span class="line"></span><br><span class="line">- 输出最值、众数、中位数等，常用</span><br><span class="line"></span><br><span class="line">## 汇总统计量写入SAS数据集</span><br><span class="line"></span><br><span class="line">- ```sas</span><br><span class="line">  output out = sas-data MEAN(a);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="使用PROC-FREQ进行计数"><a href="#使用PROC-FREQ进行计数" class="headerlink" title="使用PROC FREQ进行计数"></a>使用PROC FREQ进行计数</h2><ul>
+<li><p>单向频数表</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">PROC FREQ;</span></span><br><span class="line">	TABLES a;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>交叉表</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">PROC FREQ;</span></span><br><span class="line">	TABLES a<span class="comment">*b;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="使用PROC-TABULATE生成数据报表"><a href="#使用PROC-TABULATE生成数据报表" class="headerlink" title="使用PROC TABULATE生成数据报表"></a>使用PROC TABULATE生成数据报表</h2><ul>
+<li><p>格式</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">PROC TABULATE </span>DATA = XXX;</span><br><span class="line">	CLASS A B C;</span><br><span class="line">	<span class="keyword">TABLE</span> A,B,C;</span><br><span class="line"><span class="keyword">RUN;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>说明：<code>CLASS</code>说明有哪些变量要处理，<code>TABLE</code>说明有多少维度</p>
+</li>
+<li><p>更多TABULATE查看144-151，建议看百度</p>
+</li>
+</ul>
+<h2 id="使用PROC-REPORT生成简单输出"><a href="#使用PROC-REPORT生成简单输出" class="headerlink" title="使用PROC REPORT生成简单输出"></a>使用PROC REPORT生成简单输出</h2><ul>
+<li><p>基本格式</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">PROC REPORT </span>NOWINDOWS;</span><br><span class="line">	COLUMN variable-<span class="keyword">list</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果省略了第二句，默认就会使用数据集所有变量</p>
+</li>
+<li><p>如果报表中存在字符性变量，默认只会得到一张详细的表；如果只有数值型变量，那么就会求和</p>
+</li>
+</ul>
+<h3 id="DEFINE"><a href="#DEFINE" class="headerlink" title="DEFINE"></a>DEFINE</h3><ul>
+<li><p>一般格式</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">PROC report </span>nowindows <span class="keyword">missing</span>;</span><br><span class="line">	DEFINE variable / <span class="keyword">options</span> <span class="string">&#x27;column-header&#x27;</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>options有ANALYSIS(求和)等，见154；MISSING代表有缺失值；</p>
+</li>
+<li><p>其实就是竖起来的那一列DEFINE一下</p>
+</li>
+</ul>
+<h3 id="创建汇总表格"><a href="#创建汇总表格" class="headerlink" title="创建汇总表格"></a>创建汇总表格</h3><blockquote>
+<p>根据变量值生成分组汇总，其中“GROUP”生成行维度，“ACROSS”生成列汇总</p>
+</blockquote>
+<h4 id="分组变量"><a href="#分组变量" class="headerlink" title="分组变量"></a>分组变量</h4><ul>
+<li><p>一般用法</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">PROC REPORT </span>DATA=XXX NOWINDOWS;</span><br><span class="line">COLUMN A B;					<span class="comment">/*A每个值左面都有B、C的汇总，默认情况下会分组求和*/</span></span><br><span class="line">DEFINE A / <span class="keyword">GROUP</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>说明：对A、B两个变量进行求和计算，按照变量C进行分组，每个c变量观测值为一行</p>
+</li>
+<li><p>实现效果为行维度汇总</p>
+</li>
+</ul>
+<h4 id="交叉变量"><a href="#交叉变量" class="headerlink" title="交叉变量"></a>交叉变量</h4><ul>
+<li><p>也是使用DEFINE语句实现的</p>
+</li>
+<li><pre><code class="sas">PROC REPORT DATA=XXX NOWINDOWS;
+COLUMN A ,（B C);		/*A每个值下面都有B、C的汇总，默认情况下会计算频数*/
+DEFINE A / GROUP;
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 实现效果为列维度汇总</span><br><span class="line"></span><br><span class="line">### 输出中增加汇总分隔</span><br><span class="line"></span><br><span class="line">- 分为BREAK与RBREAK两类，其中BREAK可以划分多次，所以需要加变量；而REBREAK只在输出的表格的前面或者后面划分一次，不需要加变量名。</span><br><span class="line"></span><br><span class="line">- 基本格式</span><br><span class="line"></span><br><span class="line">  ```sas</span><br><span class="line">  BREAK location variable / options;	</span><br><span class="line">  RBREAK location / options;</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+<li><p>解释：</p>
+<ul>
+<li>location：可以选择AFTER或者BEFORE，意思是分割出现在特定表格前还是后</li>
+<li>variable：顾名思义，变量名</li>
+<li>options：SUMMERIZE总和汇总</li>
+</ul>
+</li>
+<li><p>例子</p>
+</li>
+<li><pre><code class="sas">PROC REPORT DATA=XXX;
+    XXX;
+    BREAK AFTER REGION / SUMMERIZE;	
+    RBREAK AFTER SUMMERIZE;
+RUN;
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- REGION分割了，在表格右侧显示其总和，在表格最后也有一个汇总分割</span><br><span class="line"></span><br><span class="line">### 添加统计量</span><br><span class="line"></span><br><span class="line">- 与TABULATE相同功能</span><br><span class="line">- 见160页</span><br><span class="line"></span><br><span class="line">### 添加计算功能</span><br><span class="line"></span><br><span class="line">- REPORT不同于其他大部分过程步，它还可以添加新的变量，通过计算块来实现。</span><br><span class="line"></span><br><span class="line">- 一般形式</span><br><span class="line"></span><br><span class="line">  ```sas</span><br><span class="line">  DEFINE new-variable-name / computed;</span><br><span class="line">  compute new-var-name / options</span><br><span class="line">  	programing</span><br><span class="line">  endcomp;</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+<li><p>计算数值变量，直接在编程块进行操作；字符变量需要在options上加上‘char’以及长度length指定字符长度</p>
+</li>
+</ul>
+<h2 id="自定义输出格式分组"><a href="#自定义输出格式分组" class="headerlink" title="自定义输出格式分组"></a>自定义输出格式分组</h2><ul>
+<li>&#96;&#96;&#96;sas<br>PROC FORMAT<br>VALUE agegpa<br>    0-18&#x3D;’0 to 18’<br>    19-25&#x3D;’19 to 25’;		&#x2F;<em>记得在最后处有一个分号</em>&#x2F;<br>VALUE agegpb<br>    0-25&#x3D;’0 to 25’<br>    26-HIGH&#x3D;’26+’;<br>VALUE $typ<br>    ‘x’,’y’,’z’&#x3D;’xxyyzz’<br>run;<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 使用时</span><br><span class="line"></span><br><span class="line">  ```sas</span><br><span class="line">  PROC xxx</span><br><span class="line">  	FORMAT Age agegpa.;</span><br><span class="line">  RUN;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="ODS输出"><a href="#ODS输出" class="headerlink" title="ODS输出"></a>ODS输出</h1><blockquote>
+<p>ODS是数据与绘图结合，输出的是一个图形输出而不是表格输出</p>
+</blockquote>
+<h2 id="追踪和选择过程步输出结果"><a href="#追踪和选择过程步输出结果" class="headerlink" title="追踪和选择过程步输出结果"></a>追踪和选择过程步输出结果</h2><h3 id="ODS-TRACE语句"><a href="#ODS-TRACE语句" class="headerlink" title="ODS TRACE语句"></a>ODS TRACE语句</h3><ul>
+<li><p>用于通知sas在日志中打印输出对象的相关信息</p>
+</li>
+<li><p>有两部分组成：<code>obs trace on</code>和<code>obs trace off</code>注意，<code>obs trace off</code>要放在<code>run</code>语句之后</p>
+</li>
+<li><p>一般格式：</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">OBS TRACE <span class="keyword">ON</span>;</span><br><span class="line"><span class="keyword">PROC XXX</span></span><br><span class="line"><span class="keyword"></span><span class="keyword">RUN;</span></span><br><span class="line">OBS TRACE OFF;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="ODS-SELECT语句"><a href="#ODS-SELECT语句" class="headerlink" title="ODS SELECT语句"></a>ODS SELECT语句</h3><ul>
+<li><p>选择特定的输出对象，可以是名字、标签或者路径，一般在run语句之前</p>
+</li>
+<li><pre><code class="sas">proc xxx;
+ods select Means.ByGroup2.Summary
+run;
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 从过程步输出中创建SAS数据集(output语句)</span><br><span class="line"></span><br><span class="line">&gt; 某些情况下需要将过程步生成的结果输出到数据集，除却某些过程步中本来就有的output option外，可以使用ods来将几乎所有过程步的任意输出保存到sas数据集</span><br><span class="line"></span><br><span class="line">- 一般语法</span><br><span class="line"></span><br><span class="line">  ```sas</span><br><span class="line">  ODS OUTPUT output-object=new-data-set;</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+<li><p>其中output-object可以是想要保存的输出对象的名字、标签和路径，new-data-set是想要创建的数据集的名字。一般放在proc之后、下一个proc或者run语句之前</p>
+</li>
+<li><p>可以先使用trace一下，看看有什么数据集在过程步被建立了，然后在output出来</p>
+</li>
+</ul>
+<h2 id="创建文本输出-LISTING"><a href="#创建文本输出-LISTING" class="headerlink" title="创建文本输出(LISTING)"></a>创建文本输出(LISTING)</h2><ul>
+<li><p>一般格式</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ODS LISTING <span class="keyword">FILE</span>=<span class="string">&#x27;xxx&#x27;</span>;		<span class="comment">/*FILE可以指定输出位置*/</span></span><br><span class="line">ODS NOPROCTITLE;			<span class="comment">/*不输出title*/</span></span><br><span class="line"><span class="keyword">proc xxx;</span></span><br><span class="line"><span class="keyword">run;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="创建HTML输出"><a href="#创建HTML输出" class="headerlink" title="创建HTML输出"></a>创建HTML输出</h2><ul>
+<li>sas9.3开始就是默认输出格式</li>
+<li>详情见180页</li>
+</ul>
+<h2 id="输出RTF、PDF格式"><a href="#输出RTF、PDF格式" class="headerlink" title="输出RTF、PDF格式"></a>输出RTF、PDF格式</h2><ul>
+<li><p>一般格式</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ODS RTF\PDF <span class="keyword">file</span>=<span class="string">&#x27;xxx&#x27;</span>;</span><br><span class="line">ODS RTF\PDF close;			<span class="comment">/*在run语句后面*/</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>选项大同小异，详情见182、184页</p>
+</li>
+</ul>
+<hr>
+<p><em>以下大部分都是外观输出，可以直接跳过，去到下一章</em></p>
+<h2 id="自定义标题与脚注"><a href="#自定义标题与脚注" class="headerlink" title="自定义标题与脚注"></a>自定义标题与脚注</h2><ul>
+<li>&#96;&#96;&#96;sas<br>title options ‘xxx’ option ‘yyy’;<br>footnote options ‘xxx’ option ‘yyy’;<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- option查看186页</span><br><span class="line"></span><br><span class="line">## 通过style=选项来自定义print、report、过程输出</span><br><span class="line"></span><br><span class="line">- 见188页</span><br><span class="line"></span><br><span class="line">## 添加红路灯效果</span><br><span class="line"></span><br><span class="line">- 其实就是highline</span><br><span class="line">- 见195页</span><br><span class="line"></span><br><span class="line">## 样式属性</span><br><span class="line"></span><br><span class="line">- 见197页</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 修改和合并数据</span><br><span class="line"></span><br><span class="line">## 使用set语句修改数据集</span><br><span class="line"></span><br><span class="line">&gt; 通过data步的set语句读取数据集，可以实现增加新变量、创建子集或修改数据集的操作。set语句每次从sas数据集中读取一条观测供data步处理</span><br><span class="line"></span><br><span class="line">- 一般格式</span><br><span class="line"></span><br><span class="line">  ```sas</span><br><span class="line">  data 新数据集;</span><br><span class="line">  	set 旧数据集;</span><br><span class="line">  	if 条件;</span><br><span class="line">  	新变量=新变量+-*\;</span><br><span class="line">  run;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="使用set语句合并数据集"><a href="#使用set语句合并数据集" class="headerlink" title="使用set语句合并数据集"></a>使用set语句合并数据集</h2><ul>
+<li><p>一般格式</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">data </span>新数据集</span><br><span class="line">	<span class="keyword">set</span> 旧数据集1 旧数据集2；</span><br><span class="line">	<span class="keyword">by</span> 变量名;				<span class="comment">/*当需要交错连接数据集时*/</span></span><br><span class="line"><span class="keyword">run;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="使用merge匹配合并数据集"><a href="#使用merge匹配合并数据集" class="headerlink" title="使用merge匹配合并数据集"></a>使用merge匹配合并数据集</h2><blockquote>
+<p>合并相同观测的数据，可以一对一，也可以一对多</p>
+</blockquote>
+<ul>
+<li><p>一般格式</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">data </span>新数据集</span><br><span class="line">	<span class="keyword">merge</span> 数据集1 数据集2;</span><br><span class="line">	<span class="keyword">by</span> 相同变量/观测;				<span class="comment">/*此处的by意思是依据by的变量来合并，在一对多合并中不可省略*/</span></span><br><span class="line"><span class="keyword">run;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="合并汇总统计量和原始数据"><a href="#合并汇总统计量和原始数据" class="headerlink" title="合并汇总统计量和原始数据"></a>合并汇总统计量和原始数据</h2><ul>
+<li>例子见214页，值得一看的十分具有实际意义的操作</li>
+</ul>
+<h2 id="合并总计与原始数据"><a href="#合并总计与原始数据" class="headerlink" title="合并总计与原始数据"></a>合并总计与原始数据</h2><ul>
+<li><p>这个与上面不同的时总计，总计只有一条观测，而原始数据则有很多条观测，所以仅仅使用merge时无法完成这项工作的，那么可以使用以下语句来实现</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">data </span>新数据集;</span><br><span class="line">	<span class="keyword">if</span> <span class="literal">_N_</span> = 1 <span class="keyword">THEN</span> <span class="keyword">set</span> 总计;</span><br><span class="line">	<span class="keyword">set</span> 原始数据;</span><br><span class="line"><span class="keyword">run;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>说明：_N_的意思是data步的第n次迭代，所以这句的意思是在data步第一次迭代时set总计进来，然后再set原始数据进来；接下来的data步就不需要set总计进来了，这样就可以合并总计与原始数据了。</p>
+</li>
+</ul>
+<h2 id="通过update更新主数据集"><a href="#通过update更新主数据集" class="headerlink" title="通过update更新主数据集"></a>通过update更新主数据集</h2><blockquote>
+<p>update与merge和modify都很类似，都是通过公共观测来匹配合并数据集</p>
+</blockquote>
+<ul>
+<li><p>一般格式</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">data </span>数据集;</span><br><span class="line">	<span class="keyword">update</span> 主数据集 事务数据集;</span><br><span class="line">	<span class="keyword">by</span> 相同观测;</span><br><span class="line"><span class="keyword">run;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>注意，update只能指定两个数据集，一个是主数据集，且by变量的值在主数据集中唯一，(有点像mysql的主键)</p>
+</li>
+</ul>
+<h2 id="使用output语句输出多个数据集"><a href="#使用output语句输出多个数据集" class="headerlink" title="使用output语句输出多个数据集"></a>使用output语句输出多个数据集</h2><blockquote>
+<p>一般来说，处理data _NULL_不输出数据集之外，大部分data步都会输出一个数据集，如果想要输出多个数据集，可以使用output语句来实现</p>
+</blockquote>
+<ul>
+<li><p>一般格式</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">data </span>a b c;				<span class="comment">/*这会导致abc三个数据集的数据是一样的*/</span></span><br><span class="line"><span class="keyword"></span></span><br><span class="line"><span class="keyword">data </span>a;</span><br><span class="line">	<span class="keyword">IF</span> f=xxx <span class="keyword">THEN</span> <span class="keyword">output</span> 新数据集a;</span><br><span class="line">	<span class="keyword">IF</span> f=xxx <span class="keyword">THEN</span> <span class="keyword">output</span> 新数据集b;</span><br><span class="line"><span class="keyword">run;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="使用ouput将一条观测变为多条观测"><a href="#使用ouput将一条观测变为多条观测" class="headerlink" title="使用ouput将一条观测变为多条观测"></a>使用ouput将一条观测变为多条观测</h2><blockquote>
+<p>通常情况下，一次迭代中data步末尾才会将一条观测传入新的数据集，但是可以使用output语句将一次迭代中传入多条观测</p>
+</blockquote>
+<ul>
+<li>可以使用do循环或者直接多次使用output语句即可</li>
+</ul>
+<h2 id="使用SAS数据集选项"><a href="#使用SAS数据集选项" class="headerlink" title="使用SAS数据集选项"></a>使用SAS数据集选项</h2><blockquote>
+<p>影响力范围最小的选项</p>
+</blockquote>
+<h3 id="选择和重命名选项"><a href="#选择和重命名选项" class="headerlink" title="选择和重命名选项"></a>选择和重命名选项</h3><ul>
+<li><p>即KEEP&#x3D;、DROP&#x3D;和RENAME&#x3D;数据集选项</p>
+</li>
+<li><p>与keep drop rename语句比较，选项可以使用在DATA步与PROC步，而语句只能使用在DATA步</p>
+</li>
+<li><p>一般形式</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DATA </span>xxx;</span><br><span class="line">	<span class="keyword">set</span> xxx(<span class="keyword">keep</span>/<span class="keyword">drop</span>=xxx);</span><br><span class="line"><span class="keyword">	</span></span><br><span class="line"><span class="keyword">PROC print </span>data=xxx(<span class="keyword">drop</span>=xxx);</span><br><span class="line"><span class="keyword"></span></span><br><span class="line"><span class="keyword">DATA </span>print data = xxx(<span class="keyword">rename</span>=(新变量名=旧变量名 新变量名2=旧变量名2));</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="通过观测编号选择观测"><a href="#通过观测编号选择观测" class="headerlink" title="通过观测编号选择观测"></a>通过观测编号选择观测</h3><ul>
+<li><p>使用FIRSTOBS&#x3D;和OBS&#x3D;选项来实现仅需要满足条件的观测</p>
+</li>
+<li><p>一般格式</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DATA </span>xxx;</span><br><span class="line">	<span class="keyword">set</span> xxx(FIRSTOBS=101 OBS=120);		<span class="comment">/*只读取20条观测*/</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>与同名语句FIRSTOBS和OBS十分类似，但是与上面的例子一样，选项可以用于DATA步和PROC步，而语句只能用于DATA步。另外，数据集选项会覆盖语句。</p>
+</li>
+</ul>
+<h3 id="添加sas数据集标签"><a href="#添加sas数据集标签" class="headerlink" title="添加sas数据集标签"></a>添加sas数据集标签</h3><ul>
+<li><p>使用LABEL&#x3D;选项来实现对整个数据集起标签</p>
+</li>
+<li><p>与data步与proc步的label语句类似，但是可以给整个数据集其标签，语句只能给单一变量</p>
+</li>
+<li><p>一般格式</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DATA </span>xx(<span class="keyword">LABEL</span>=xxxxxx);</span><br><span class="line">	<span class="keyword">set</span> xxx;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="使用IN-x3D-选项追踪和选择数据"><a href="#使用IN-x3D-选项追踪和选择数据" class="headerlink" title="使用IN&#x3D;选项追踪和选择数据"></a>使用IN&#x3D;选项追踪和选择数据</h3><ul>
+<li><p>一般格式</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DATA </span>xxx;</span><br><span class="line">	<span class="keyword">MERGE</span> aaa bbb(<span class="keyword">IN</span>=recent);</span><br><span class="line">	<span class="keyword">BY</span> cxxx;</span><br><span class="line">	<span class="keyword">IF</span> recent=0;</span><br><span class="line"><span class="keyword">run;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>说明：IN选项创建了一个变量为recent，如果recent数据有来源于bbb数据集的话则取值为1，否则取值为0；最后的if语句说明加入recent&#x3D;0那么读取该观测，否则不读入该观测。</p>
+</li>
+</ul>
+<h3 id="使用WHERE-x3D-选项选择观测"><a href="#使用WHERE-x3D-选项选择观测" class="headerlink" title="使用WHERE&#x3D;选项选择观测"></a>使用WHERE&#x3D;选项选择观测</h3><ul>
+<li><p>一般形式</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">WHERE</span> = (conditions);</span><br><span class="line"><span class="keyword"></span></span><br><span class="line"><span class="keyword">DATA </span>xxx;</span><br><span class="line">	<span class="keyword">set</span> xxx (<span class="keyword">where</span> = (xxx=<span class="string">&#x27;xxxx&#x27;</span>));</span><br><span class="line"><span class="keyword">	</span></span><br><span class="line"><span class="keyword">proc print </span>data=xxx(<span class="keyword">where</span> = (xxx=<span class="string">&#x27;ddd&#x27;</span>));</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="使用PROC-TRANSPOSE转置数据"><a href="#使用PROC-TRANSPOSE转置数据" class="headerlink" title="使用PROC TRANSPOSE转置数据"></a>使用PROC TRANSPOSE转置数据</h3><ul>
+<li><p>将观测转换为变量</p>
+</li>
+<li><p>一般格式</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">proc transpose </span>data=旧的数据集	<span class="keyword">out</span>=新的数据集;</span><br><span class="line">	<span class="keyword">by</span> var1;</span><br><span class="line">	id var2;</span><br><span class="line">	var var3;</span><br><span class="line"><span class="keyword">run;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>说明：</p>
+<ul>
+<li>by语句：需要保留的不需要转置的变量，在transpose前需要根据by排序</li>
+<li>id语句：ID语句的变量中的值会在新的数据集中变成新的变量名</li>
+<li>var语句：会列出需要转置其值的变量</li>
+</ul>
+</li>
+</ul>
+<h3 id="使用sas自动变量"><a href="#使用sas自动变量" class="headerlink" title="使用sas自动变量"></a>使用sas自动变量</h3><ul>
+<li>_N_和_ERROR_：_N_是DATA步循环的次数，_ERROR_是否出现错误，是则为1，否则为0</li>
+<li>FIRST.variable和LAST.variable：很明了，sas处理第一条观测时FIRST.variable&#x3D;1，否则为0；LAST.variable也一样</li>
+</ul>
+<h1 id="SAS宏编写代码"><a href="#SAS宏编写代码" class="headerlink" title="SAS宏编写代码"></a>SAS宏编写代码</h1><ul>
+<li><p>宏处理器：sas在编译与执行程序前，会将宏程序传给宏处理器，称之为元编程</p>
+</li>
+<li><p>宏与宏变量：宏名称前带有%，宏变量前带有&amp;。宏变量只有一个值，不属于任何数据集，始终为字符型</p>
+</li>
+<li><p>局部与全局：初定结论是只有在宏函数中才有局部变量</p>
+</li>
+<li><p>开启处理器：确保MARCO已经开启</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">proc options </span>option=marco;</span><br><span class="line"><span class="keyword">run;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>避免宏错误：模块化编程</p>
+</li>
+</ul>
+<h2 id="用宏变量代替文本"><a href="#用宏变量代替文本" class="headerlink" title="用宏变量代替文本"></a>用宏变量代替文本</h2><h3 id="使用-LET语句创建文本"><a href="#使用-LET语句创建文本" class="headerlink" title="使用%LET语句创建文本"></a>使用%LET语句创建文本</h3><ul>
+<li><p>一般格式</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">%LET</span> 宏变量名 = 想要被替换掉值;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>注意，不需要引号，即使是字符串也不需要，前后的空格会被删除</p>
+</li>
+</ul>
+<h3 id="使用宏变量"><a href="#使用宏变量" class="headerlink" title="使用宏变量"></a>使用宏变量</h3><ul>
+<li>只需要在宏变量前加上&amp;前缀</li>
+<li>sas不查找单引号中的宏变量，可以将单引号换成双引号</li>
+</ul>
+<h2 id="拼接宏变量和其他文本"><a href="#拼接宏变量和其他文本" class="headerlink" title="拼接宏变量和其他文本"></a>拼接宏变量和其他文本</h2><h3 id="拼接文本与宏变量"><a href="#拼接文本与宏变量" class="headerlink" title="拼接文本与宏变量"></a>拼接文本与宏变量</h3><ul>
+<li><p>前面直接加，后面则在宏变量尾部加一点再加字段，两个宏直接拼接</p>
+</li>
+<li><p>样式</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a=<span class="string">&quot;&amp;abc&amp;def&quot;</span>;</span><br><span class="line">b=<span class="string">&quot;abc&amp;def&quot;</span>;</span><br><span class="line">c=<span class="string">&quot;&amp;abc.def&quot;</span>;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="自动宏变量"><a href="#自动宏变量" class="headerlink" title="自动宏变量"></a>自动宏变量</h3><ul>
+<li><p>如</p>
+<table>
+<thead>
+<tr>
+<th>变量名</th>
+<th>示例</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&amp;SYSDAY</td>
+<td>一眼看出来</td>
+<td>日期</td>
+</tr>
+<tr>
+<td>&amp;SYSDATE</td>
+<td></td>
+<td>星期几</td>
+</tr>
+<tr>
+<td>&amp;SYSNOBS</td>
+<td></td>
+<td>观测数</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h2 id="使用宏创建模块代码"><a href="#使用宏创建模块代码" class="headerlink" title="使用宏创建模块代码"></a>使用宏创建模块代码</h2><ul>
+<li><p>一般形式</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">%macro</span> 宏名字;</span><br><span class="line">文本;</span><br><span class="line"><span class="built_in">%MEND</span> 宏名字;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="调用宏"><a href="#调用宏" class="headerlink" title="调用宏"></a>调用宏</h3><ul>
+<li>在宏名字前加上%即可调用</li>
+</ul>
+<h3 id="宏自动调用库"><a href="#宏自动调用库" class="headerlink" title="宏自动调用库"></a>宏自动调用库</h3><ul>
+<li>见246，书上建议看sas帮助文档</li>
+</ul>
+<h2 id="向宏添加参数"><a href="#向宏添加参数" class="headerlink" title="向宏添加参数"></a>向宏添加参数</h2><ul>
+<li><p>格式</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">%MACRO</span> 宏名字(参数1= ，参数2= ，参数3= );</span><br><span class="line">macro-text</span><br><span class="line"><span class="built_in">%MEND</span> 宏名字;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*调用*/</span></span><br><span class="line">%宏名字(参数1=<span class="keyword">x</span>,参数2=y,参数3=z);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="编写带条件逻辑的宏"><a href="#编写带条件逻辑的宏" class="headerlink" title="编写带条件逻辑的宏"></a>编写带条件逻辑的宏</h2><ul>
+<li><p>一般格式</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">%IF</span> 条件 <span class="built_in">%THEN</span> 程序;</span><br><span class="line">	<span class="built_in">%ELSE</span> <span class="built_in">%IF</span> 条件 <span class="built_in">%THEN</span> 程序;</span><br><span class="line">	<span class="built_in">%ELSE</span> 程序;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>注意，在宏中也可以使用标准的TF-THEN语句。不同的是%IF语句可以执行DATA步或者是PROC步，而且%IF语句不会出现在宏生成的代码中</p>
+</li>
+</ul>
+<h2 id="使用CALL-SYMPUT来编写数据驱动的程序"><a href="#使用CALL-SYMPUT来编写数据驱动的程序" class="headerlink" title="使用CALL SYMPUT来编写数据驱动的程序"></a>使用CALL SYMPUT来编写数据驱动的程序</h2><blockquote>
+<p>提交包含宏的程序时，步骤如下：提交到宏处理器–&gt;生成标准sas代码–&gt;sas编译并执行代码。而symput可以在data步获得数据将其赋予宏变量以免sas代码获得时太迟了</p>
+</blockquote>
+<ul>
+<li><p>一般格式</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">IF</span> age&gt;=18 <span class="keyword">then</span> <span class="keyword">call</span> sym<span class="meta">put</span>(<span class="string">&quot;宏变量1&quot;</span>,<span class="string">&quot;值1&quot;</span>)</span><br><span class="line"><span class="keyword">ELSE</span> <span class="keyword">call</span> sym<span class="meta">put</span>(<span class="string">&quot;宏变量2&quot;</span>,<span class="string">&quot;值2&quot;</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>说明：若age&gt;&#x3D;18，那么值1将赋给’&amp;宏变量1’,否则值2赋给’&amp;宏变量2’。</p>
+</li>
+</ul>
+<h2 id="调试宏错误"><a href="#调试宏错误" class="headerlink" title="调试宏错误"></a>调试宏错误</h2><ul>
+<li>253页</li>
+</ul>
+<h1 id="可视化数据"><a href="#可视化数据" class="headerlink" title="可视化数据"></a>可视化数据</h1><h2 id="ODS图形"><a href="#ODS图形" class="headerlink" title="ODS图形"></a>ODS图形</h2><h3 id="使用ODS图形"><a href="#使用ODS图形" class="headerlink" title="使用ODS图形"></a>使用ODS图形</h3><ul>
+<li><p>在运行前插入</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ODS GRAPHICS <span class="keyword">ON</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关闭</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ODS GRAPHICS OFF;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="使用ODS图形绘制单独图形"><a href="#使用ODS图形绘制单独图形" class="headerlink" title="使用ODS图形绘制单独图形"></a>使用ODS图形绘制单独图形</h3><blockquote>
+<p>sgplot绘制单框图，sgpanel可绘制基于分类变量的多框图</p>
+</blockquote>
+<p>图形分为三类：<code>X Y坐标图</code>、<code>连续分布</code>、<code>分类分布</code></p>
+<ul>
+<li>sgplot：建议查看教科书</li>
+<li>sgpanel</li>
+</ul>
+<h2 id="绘制条形图"><a href="#绘制条形图" class="headerlink" title="绘制条形图"></a>绘制条形图</h2><ul>
+<li><p>一般格式</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">PROC SGPLOT;</span></span><br><span class="line">	VBAR 变量名 / option;		<span class="comment">/*绘制垂直条形图，如果是水平条形图，则用HBAR代替VBAR*/</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>option选项查看261页</p>
+</li>
+</ul>
+<h2 id="绘制直方图"><a href="#绘制直方图" class="headerlink" title="绘制直方图"></a>绘制直方图</h2><ul>
+<li><p>一般格式</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">PROC SGPLOT;</span></span><br><span class="line">HISTOGRAM 变量名 / option;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>option选项查看263页</p>
+</li>
+</ul>
+<h2 id="绘制密度曲线"><a href="#绘制密度曲线" class="headerlink" title="绘制密度曲线"></a>绘制密度曲线</h2><ul>
+<li><p>一般格式</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">PROC SGPLOT;</span></span><br><span class="line">DDENSITY 变量 / <span class="keyword">options</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>option选项查看263页</p>
+</li>
+<li><p>density和histogram可以一起使用，但不能与其他类型图形一起使用</p>
+</li>
+</ul>
+<h2 id="绘制盒型图"><a href="#绘制盒型图" class="headerlink" title="绘制盒型图"></a>绘制盒型图</h2><ul>
+<li><p>一般格式</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">PROC SGPLOT;</span></span><br><span class="line">	VBOX 变量 / <span class="keyword">options</span>;		<span class="comment">/*竖直盒型图，如果是水平盒型图，则使用HBOX替换VBOX*/</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>option选项查看265</p>
+</li>
+</ul>
+<h2 id="绘制散点图"><a href="#绘制散点图" class="headerlink" title="绘制散点图"></a>绘制散点图</h2><ul>
+<li><p>一般格式</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">PROC SGPLOT;</span></span><br><span class="line">	SCATTER <span class="keyword">X</span>=<span class="keyword">x</span> Y=y /<span class="keyword">options</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>option选项查看267</p>
+</li>
+</ul>
+<h2 id="绘制序列图"><a href="#绘制序列图" class="headerlink" title="绘制序列图"></a>绘制序列图</h2><ul>
+<li><p>一般格式</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">PROC SGPLOT;</span></span><br><span class="line">SERIES <span class="keyword">X</span>=<span class="keyword">x</span> Y=y / <span class="keyword">options</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>option选项见268页</p>
+</li>
+<li><p>注意序列图就是将散点图连起来，所以需要将水平轴变量先排序(PROC SORT)！</p>
+</li>
+</ul>
+<h2 id="绘制拟合曲线"><a href="#绘制拟合曲线" class="headerlink" title="绘制拟合曲线"></a>绘制拟合曲线</h2><ul>
+<li><p>一般格式</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">proc sgplot;</span></span><br><span class="line">	statement-name <span class="keyword">X</span>=<span class="keyword">x</span> Y=y / <span class="keyword">options</span>;</span><br><span class="line"><span class="keyword">run;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>statement-name有：</p>
+<ul>
+<li>reg：线性回归</li>
+<li>LOSEE：losee曲线</li>
+<li>PBSPLINE：惩罚B样条曲线</li>
+</ul>
+</li>
+<li><p>option见270页</p>
+</li>
+</ul>
+<h2 id="控制坐标轴与参考线"><a href="#控制坐标轴与参考线" class="headerlink" title="控制坐标轴与参考线"></a>控制坐标轴与参考线</h2><h3 id="坐标轴"><a href="#坐标轴" class="headerlink" title="坐标轴"></a>坐标轴</h3><ul>
+<li><p>一般格式</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">PROC SGPLOT;</span></span><br><span class="line">	XAXIS <span class="keyword">options</span>;					<span class="comment">/*想一想MATLAB*/</span></span><br><span class="line">	YAXIS <span class="keyword">options</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>options见272页</p>
+</li>
+</ul>
+<h3 id="参考线"><a href="#参考线" class="headerlink" title="参考线"></a>参考线</h3><ul>
+<li><p>一般格式</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">PROC SGPLOT;</span></span><br><span class="line">	REFLINE values /<span class="keyword">options</span>; <span class="comment">/*value可以是一个值，也可以是一个列表*、</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="控制图例和插入项"><a href="#控制图例和插入项" class="headerlink" title="控制图例和插入项"></a>控制图例和插入项</h3><blockquote>
+<p>sgplot和sgpanel会自动生成合适的图例，也可以自己改.大部分options见274-276</p>
+</blockquote>
+<h3 id="修改图例"><a href="#修改图例" class="headerlink" title="修改图例"></a>修改图例</h3><ul>
+<li>&#96;&#96;&#96;sas<br>KEYLEGEND &#x2F; options;<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- option见274页</span><br><span class="line"></span><br><span class="line">### 删除图例</span><br><span class="line"></span><br><span class="line">- ```sas</span><br><span class="line">  PROC SGPLOT DATA=xxx NOAUTOLEGEND;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="添加插入项"><a href="#添加插入项" class="headerlink" title="添加插入项"></a>添加插入项</h3><ul>
+<li>&#96;&#96;&#96;sas<br>INSET ‘文本1’ ‘文本2’;<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 自定义图形属性</span><br><span class="line"></span><br><span class="line">- 看276，以后补上</span><br><span class="line"></span><br><span class="line">## 绘制面板图形</span><br><span class="line"></span><br><span class="line">- 279页</span><br><span class="line"></span><br><span class="line">## 指定图形属性和保存图像输出</span><br><span class="line"></span><br><span class="line">- 281页</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line"># 基本统计过程的使用方法</span><br><span class="line"></span><br><span class="line">## 使用UNIVARIATE检验数据的分布</span><br><span class="line"></span><br><span class="line">- 一般格式</span><br><span class="line"></span><br><span class="line">  ```sas</span><br><span class="line">  PROC UNVARIATE;</span><br><span class="line">  	VAR 变量列表;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="使用UNIVARIATE创建统计图形"><a href="#使用UNIVARIATE创建统计图形" class="headerlink" title="使用UNIVARIATE创建统计图形"></a>使用UNIVARIATE创建统计图形</h3><ul>
+<li><p>一般格式</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">PROC UNIVARIATE;</span></span><br><span class="line">	var 变量;</span><br><span class="line">	绘图请求 变量列表 / <span class="keyword">options</span>;</span><br><span class="line"><span class="keyword">run;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>绘图请求：</p>
+<ul>
+<li>CDFPLOT	经验累积分布函数图</li>
+<li>HISTOGRAM    直方图</li>
+<li>PPPLOT     pp图</li>
+<li>PROBPLO    概率图</li>
+<li>QQPLOT    qq图</li>
+</ul>
+</li>
+<li><p>options：见289</p>
+</li>
+<li><p>注意，p值小于0.001说明拒绝原假设，不服从正态分布</p>
+</li>
+</ul>
+<h2 id="使用PROC-MEANS-生成统计量"><a href="#使用PROC-MEANS-生成统计量" class="headerlink" title="使用PROC MEANS 生成统计量"></a>使用PROC MEANS 生成统计量</h2><blockquote>
+<p>univariate对数据进行深入的统计分析，而means过程也可以产生大部分univariate的数据，只是没有它深入而已，所以如果只需要简单的分析，那么means过程可以解决大部分问题</p>
+</blockquote>
+<ul>
+<li><p>一般格式</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">PROC MEANS </span>统计关键字;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>统计关键字见290页</p>
+</li>
+</ul>
+<h3 id="置信度"><a href="#置信度" class="headerlink" title="置信度"></a>置信度</h3><ul>
+<li>ALPHA&#x3D; .10	(90%置信度)</li>
+</ul>
+<h3 id="VAR语句"><a href="#VAR语句" class="headerlink" title="VAR语句"></a>VAR语句</h3><ul>
+<li>指定部分数据生成统计量</li>
+</ul>
+<h2 id="使用PROC-TTEST检验样本均值"><a href="#使用PROC-TTEST检验样本均值" class="headerlink" title="使用PROC TTEST检验样本均值"></a>使用PROC TTEST检验样本均值</h2><ul>
+<li>对样本均值进行t检验</li>
+</ul>
+<h3 id="单样本t检验"><a href="#单样本t检验" class="headerlink" title="单样本t检验"></a>单样本t检验</h3><figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">PROC TTEST </span>H0=n <span class="keyword">options</span>;</span><br><span class="line">VAR variable;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>H0默认情况下为0</li>
+<li>例如，检验学生的平均成绩是否高过某一水平</li>
+</ul>
+<h3 id="独立双样本t检验"><a href="#独立双样本t检验" class="headerlink" title="独立双样本t检验"></a>独立双样本t检验</h3><figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">PROC TTEST </span><span class="keyword">options</span>;</span><br><span class="line">	CLASS variable;</span><br><span class="line">	VAR variable;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>CLASS列出可以取分两组独立变量的变量名，VAR列出响应变量</li>
+</ul>
+<h3 id="配对样本均值t检验"><a href="#配对样本均值t检验" class="headerlink" title="配对样本均值t检验"></a>配对样本均值t检验</h3><figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">PROC TTEST </span><span class="keyword">options</span>;</span><br><span class="line">	PAIRED 变量1<span class="comment">*变量2;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>options见293</li>
+</ul>
+<h2 id="使用PROC-TTEST绘制统计图形"><a href="#使用PROC-TTEST绘制统计图形" class="headerlink" title="使用PROC TTEST绘制统计图形"></a>使用PROC TTEST绘制统计图形</h2><blockquote>
+<p>TTEST很多图形时默认生成的，但是可以通过使用PROC TTEST的PLOT选项来控制生成哪些图形</p>
+</blockquote>
+<ul>
+<li><p>一般形式</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">PROC TTEST </span>PLOTS=(绘图请求);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>绘图请求见295页</p>
+</li>
+<li><p>在T检验时，有一些图形是默认生成的，如果想要去除，只显示想要的图形，加上only选项</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">PROC TTEST </span>PLOTS(ONLY)=xxx;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="使用PROC-FREQ检验分类数据"><a href="#使用PROC-FREQ检验分类数据" class="headerlink" title="使用PROC FREQ检验分类数据"></a>使用PROC FREQ检验分类数据</h2><blockquote>
+<p>通常用于检验两个变量之间的无关联的假设和计算两个变量之间的关联度,如卡方检验（两个定性变量之间的关联度分析）</p>
+</blockquote>
+<ul>
+<li><p>基本形式</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">PROC FREQ;</span></span><br><span class="line">	TABLES 变量组合 / <span class="keyword">options</span>;		<span class="comment">/*变量组合就类似于a*b，但是a,b都是字符型变量*/</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>options选项见297页</p>
+</li>
+</ul>
+<h2 id="使用PROC-FREQ检验分类数据-1"><a href="#使用PROC-FREQ检验分类数据-1" class="headerlink" title="使用PROC FREQ检验分类数据"></a>使用PROC FREQ检验分类数据</h2><ul>
+<li><p>一般格式</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Proc freq;</span></span><br><span class="line">	tables 变量组合 / <span class="keyword">options</span> PLOTS=(plot-<span class="keyword">list</span>);</span><br><span class="line"><span class="keyword">run;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>plot-list的选择取决于options，详情见299页</p>
+</li>
+</ul>
+<h3 id="绘图选项"><a href="#绘图选项" class="headerlink" title="绘图选项"></a>绘图选项</h3><ul>
+<li>查看sas帮助文档</li>
+</ul>
+<h2 id="使用PROC-CORR检验数据的相关性"><a href="#使用PROC-CORR检验数据的相关性" class="headerlink" title="使用PROC CORR检验数据的相关性"></a>使用PROC CORR检验数据的相关性</h2><blockquote>
+<p>相关性 如果完全不相关则相关系数为0，否则为1或者-1</p>
+</blockquote>
+<ul>
+<li><p>基本语句</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">PROC CORR;</span></span><br><span class="line">	var 变量1 变量2;</span><br><span class="line">	with 变量3 变量4；	<span class="comment">/*var中的变量会出现在相关系数表的上方，with变量会出现在相关系数表的左方*/</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="使用PROC-CORR创建统计图形"><a href="#使用PROC-CORR创建统计图形" class="headerlink" title="使用PROC CORR创建统计图形"></a>使用PROC CORR创建统计图形</h2><ul>
+<li><p>一般格式</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">PROC CORR </span>PLOTS = (plot-<span class="keyword">list</span>);</span><br><span class="line">	VAR variable-<span class="keyword">list</span>;</span><br><span class="line">	WITH variable-<span class="keyword">list</span>;</span><br><span class="line"><span class="keyword">RUN;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>corr可以生成两种图形：</p>
+<ul>
+<li>SCATTER    散点图</li>
+<li>MATRIX   散点矩阵图</li>
+</ul>
+</li>
+<li><p>详情见304</p>
+</li>
+</ul>
+<h2 id="使用PROC-REG进行简单回归分析"><a href="#使用PROC-REG进行简单回归分析" class="headerlink" title="使用PROC REG进行简单回归分析"></a>使用PROC REG进行简单回归分析</h2><blockquote>
+<p>reg使用最小二乘拟合线性回归方程</p>
+</blockquote>
+<ul>
+<li><p>一般格式</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">PROC REG;</span></span><br><span class="line">	MODEL dependent=independent; <span class="comment">/*因变量=自变量*/</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>结果中参数估计的p值如果大于0.05（95%置信区间），则说明该自变量对因变量的改动解释性不强，反之则强</p>
+</li>
+</ul>
+<h2 id="使用PROC-REG创建统计图形"><a href="#使用PROC-REG创建统计图形" class="headerlink" title="使用PROC REG创建统计图形"></a>使用PROC REG创建统计图形</h2><ul>
+<li><p>一般</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">PROC REG </span>PLOTS=(plot-<span class="keyword">list</span>);</span><br><span class="line">model dependent=indepent;</span><br><span class="line"><span class="keyword">run;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>移除自动绘图：和上面的一样加个（only）</p>
+</li>
+</ul>
+<h2 id="使用PROC-ANOVA进行单因素分析"><a href="#使用PROC-ANOVA进行单因素分析" class="headerlink" title="使用PROC ANOVA进行单因素分析"></a>使用PROC ANOVA进行单因素分析</h2><ul>
+<li>先欠着</li>
+</ul>
+<h2 id="理解ANOVA输出"><a href="#理解ANOVA输出" class="headerlink" title="理解ANOVA输出"></a>理解ANOVA输出</h2><ul>
+<li>先欠着</li>
+</ul>
+<hr>
+<h1 id="导出数据"><a href="#导出数据" class="headerlink" title="导出数据"></a>导出数据</h1><h2 id="数据导出方法"><a href="#数据导出方法" class="headerlink" title="数据导出方法"></a>数据导出方法</h2><h3 id="带有分隔符的文本"><a href="#带有分隔符的文本" class="headerlink" title="带有分隔符的文本"></a>带有分隔符的文本</h3><ul>
+<li>DATA步</li>
+<li>EXPORT</li>
+<li>ODS 创建(CSV)文件</li>
+</ul>
+<h3 id="创建HTML、RTF和XML文件"><a href="#创建HTML、RTF和XML文件" class="headerlink" title="创建HTML、RTF和XML文件"></a>创建HTML、RTF和XML文件</h3><ul>
+<li>ODS</li>
+</ul>
+<h3 id="创建本机格式文件"><a href="#创建本机格式文件" class="headerlink" title="创建本机格式文件"></a>创建本机格式文件</h3><ul>
+<li>例如excel spss文件可以使用gui的导出向导和export</li>
+</ul>
+<h2 id="使用导出向导文件"><a href="#使用导出向导文件" class="headerlink" title="使用导出向导文件"></a>使用导出向导文件</h2><ul>
+<li>本质上是export的gui过程，见319页</li>
+</ul>
+<h2 id="使用EXPORT过程到处带分隔符的文件"><a href="#使用EXPORT过程到处带分隔符的文件" class="headerlink" title="使用EXPORT过程到处带分隔符的文件"></a>使用EXPORT过程到处带分隔符的文件</h2><ul>
+<li><p>一般格式</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">PROC EXPORT </span>DATA = data-<span class="keyword">set</span> OUTFILE=<span class="string">&#x27;路径+名称&#x27;</span></span><br><span class="line">	DBMS = xxx <span class="keyword">REPLACE</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>DBMS上面说过，有CSV、TAB和DLM(以空格为分隔符)</p>
+</li>
+<li><p>如果想要其他分隔符，则添加以下句子来说明，注意该句还会使DBMS失效</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">PROC EXPORT </span>DATA = data-<span class="keyword">set</span> OUTFILE=<span class="string">&#x27;路径+名称&#x27;</span></span><br><span class="line">	DBMS = xxx <span class="keyword">REPLACE</span>;</span><br><span class="line">	<span class="keyword">DELIMITER</span>=<span class="string">&#x27;分隔符如&amp;等&#x27;</span>;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="使用EXPORT过程导出ms-excel文件"><a href="#使用EXPORT过程导出ms-excel文件" class="headerlink" title="使用EXPORT过程导出ms excel文件"></a>使用EXPORT过程导出ms excel文件</h2><ul>
+<li><p>一般格式（一模一样）</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">PROC EXPORT </span>DATA = data-<span class="keyword">set</span> OUTFILE=<span class="string">&#x27;路径+名称&#x27;</span></span><br><span class="line">	DBMS = xxx </span><br><span class="line">	SHEET = <span class="string">&#x27;&#x27;</span>			<span class="comment">/*命名工作表*/</span></span><br><span class="line">	<span class="keyword">REPLACE</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>DBMS有以下选项：EXCEL XLS和XLSX</p>
+</li>
+</ul>
+<h2 id="使用DATA步导出原始数据"><a href="#使用DATA步导出原始数据" class="headerlink" title="使用DATA步导出原始数据"></a>使用DATA步导出原始数据</h2><blockquote>
+<p>使用file和put语句，总体来说就是infile和input的逆过程，比export更灵活</p>
+</blockquote>
+<ul>
+<li><p>PUT语句不用像INPUT那样指明字符型变量，其他的基本一致，想要导出不是空格作为分隔符的文件，还需要加上DSD和DLM&#x3D;语句</p>
+</li>
+<li><p>一般格式</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FILE</span> <span class="string">&#x27;文件目录+名&#x27;</span> DSD DLM=<span class="string">&#x27;&#x27;</span>;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="使用ODS生成带分隔符的文件和HTML文件"><a href="#使用ODS生成带分隔符的文件和HTML文件" class="headerlink" title="使用ODS生成带分隔符的文件和HTML文件"></a>使用ODS生成带分隔符的文件和HTML文件</h2><ul>
+<li>MISSING&#x3D;’’:不打印数值型变量的缺失值；不包含观测编号’NOOBS’</li>
+<li>注意，ODS xxx和ODS xxx CLOSE只是打开关闭一个文件，文件的数据需要在中间的PRINT和RUN语句执行后写入的</li>
+</ul>
+<h3 id="CSV文件"><a href="#CSV文件" class="headerlink" title="CSV文件"></a>CSV文件</h3><ul>
+<li><p>输出目标在数值之间放逗号以及双引号中带逗号的数据值</p>
+</li>
+<li><p>一般格式</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ODS CSV <span class="keyword">FILE</span>=<span class="string">&#x27;文件名.csv&#x27;</span>;</span><br><span class="line">	打印命令;</span><br><span class="line"><span class="keyword">RUN;</span></span><br><span class="line">ODS CSV CLOSE;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>不包含脚注，如果想要包含脚注，使用过CSVALL代替CSV</p>
+</li>
+</ul>
+<h3 id="HTML文件"><a href="#HTML文件" class="headerlink" title="HTML文件"></a>HTML文件</h3><ul>
+<li><p>一般格式</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ODS HTML <span class="keyword">FILE</span>=<span class="string">&#x27;文件名.csv&#x27;</span>;</span><br><span class="line">	打印命令;</span><br><span class="line"><span class="keyword">RUN;</span></span><br><span class="line">ODS HTML CLOSE;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h1 id="调试SAS程序"><a href="#调试SAS程序" class="headerlink" title="调试SAS程序"></a>调试SAS程序</h1><h2 id="编写有效的sas程序"><a href="#编写有效的sas程序" class="headerlink" title="编写有效的sas程序"></a>编写有效的sas程序</h2><ul>
+<li><p>易读</p>
+<ul>
+<li>一行一条sas</li>
+<li>缩进</li>
+<li>注释</li>
+</ul>
+</li>
+<li><p>测试程序每个部分</p>
+<ul>
+<li>读取数据时用PROC PRINT检查数据</li>
+</ul>
+</li>
+<li><p>使用小数据集测试程序</p>
+<ul>
+<li>&#96;&#96;&#96;sas<br>INFILE ‘xxx.dat’ OBS&#x3D;100;		&#x2F;<em>读取前100个观测来测试程序</em>&#x2F;<br>INFILE ‘xxx.dat’ FIRSTOBS&#x3D;101 OBS&#x3D;200;	&#x2F;<em>差不多的意思，读取101-200的数据做检验</em>&#x2F;<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 修复无效程序</span><br><span class="line"></span><br><span class="line">- 建议查看sas日志，理解错误、警告和提示</span><br><span class="line"></span><br><span class="line">## 查找缺失的分号</span><br><span class="line"></span><br><span class="line">## 注意：INPUT语句已到达一行的末尾</span><br><span class="line"></span><br><span class="line">- 虽然是提示语句，但最好还是PROC PRINT一下</span><br><span class="line"></span><br><span class="line">## LOST CARD</span><br><span class="line"></span><br><span class="line">- 简单来说就是对应位置没有数据了</span><br><span class="line"></span><br><span class="line">## 数据无效</span><br><span class="line"></span><br><span class="line">- 建议仔细阅读错误提示</span><br><span class="line"></span><br><span class="line">- 如果想要忽略，那么使用&#x27;??&#x27;来忽视数据无效提示</span><br><span class="line"></span><br><span class="line">  ```sas</span><br><span class="line">  INPUT aa ?? 1-5 NAME 6-10;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h2 id="缺失值"><a href="#缺失值" class="headerlink" title="缺失值"></a>缺失值</h2><ul>
+<li>使用sum或者mean可以避免读取缺失值</li>
+</ul>
+<h2 id="字符类型转换"><a href="#字符类型转换" class="headerlink" title="字符类型转换"></a>字符类型转换</h2><ul>
+<li><p>字符型转数值型</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NEW=<span class="meta">INPUT</span>(a,2.);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>数值型转字符型</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NEW2=<span class="meta">PUT</span>(b,3.);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="DATA产生错误但没有错误消息"><a href="#DATA产生错误但没有错误消息" class="headerlink" title="DATA产生错误但没有错误消息"></a>DATA产生错误但没有错误消息</h2><ul>
+<li><p>使用put和putlog语句调试</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">putlog <span class="literal">_ALL_</span>;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="注释等技巧"><a href="#注释等技巧" class="headerlink" title="注释等技巧"></a>注释等技巧</h2><ul>
+<li><p>可以提交一串这样的东西，如果不匹配也没事，只会被当成注释</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">*&#x27;;</span></span><br><span class="line"><span class="comment">*&quot;;</span></span><br><span class="line"><span class="comment">*/;</span></span><br><span class="line"><span class="keyword">RUN;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="从SQL到SAS"><a href="#从SQL到SAS" class="headerlink" title="从SQL到SAS"></a>从SQL到SAS</h1><ul>
+<li>先欠着</li>
 </ul>
 
       
