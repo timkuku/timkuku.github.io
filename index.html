@@ -317,7 +317,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-10-23 15:18:30" itemprop="dateModified" datetime="2022-10-23T15:18:30+08:00">2022-10-23</time>
+                <time title="修改时间：2022-10-23 15:24:30" itemprop="dateModified" datetime="2022-10-23T15:24:30+08:00">2022-10-23</time>
               </span>
 
           
@@ -752,7 +752,7 @@ RUN;
 <li><pre><code class="sas">proc xxx;
 ods select Means.ByGroup2.Summary
 run;
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 从过程步输出中创建SAS数据集(output语句)</span><br><span class="line"></span><br><span class="line">&gt; 某些情况下需要将过程步生成的结果输出到数据集，除却某些过程步中本来就有的output option外，可以使用ods来将几乎所有过程步的任意输出保存到sas数据集</span><br><span class="line"></span><br><span class="line">- 一般语法</span><br><span class="line"></span><br><span class="line">  ```sas</span><br><span class="line">  ODS OUTPUT output-object=new-data-set;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 从过程步输出中创建SAS数据集(output语句)</span><br><span class="line"></span><br><span class="line">&gt; 某些情况下需要将过程步生成的结果输出到数据集，除却某些过程步中本来就有的output option外，可以使用ods来将几乎所有过程步的任意输出保存到sas数据集</span><br><span class="line"></span><br><span class="line">- 一般语法</span><br><span class="line"></span><br><span class="line">  ```sas</span><br><span class="line">  ODS OUTPUT output-object=new-data-set;</span><br></pre></td></tr></table></figure>
 </code></pre>
 </li>
 <li><p>其中output-object可以是想要保存的输出对象的名字、标签和路径，new-data-set是想要创建的数据集的名字。一般放在proc之后、下一个proc或者run语句之前</p>
