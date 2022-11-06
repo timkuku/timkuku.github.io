@@ -148,7 +148,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/31/SAS%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E4%BA%8B%E9%A1%B9/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/06/SAS%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E4%BA%8B%E9%A1%B9/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -162,7 +162,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/10/31/SAS%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E4%BA%8B%E9%A1%B9/" class="post-title-link" itemprop="url">SAS需要注意的事项</a>
+            <a href="/2022/11/06/SAS%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E4%BA%8B%E9%A1%B9/" class="post-title-link" itemprop="url">未命名</a>
         </h2>
 
         <div class="post-meta">
@@ -172,14 +172,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2022-10-31 21:11:56" itemprop="dateCreated datePublished" datetime="2022-10-31T21:11:56+08:00">2022-10-31</time>
+              <time title="创建时间：2022-11-06 17:34:16" itemprop="dateCreated datePublished" datetime="2022-11-06T17:34:16+08:00">2022-11-06</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-01 11:41:45" itemprop="dateModified" datetime="2022-11-01T11:41:45+08:00">2022-11-01</time>
+                <time title="修改时间：2022-11-05 17:59:58" itemprop="dateModified" datetime="2022-11-05T17:59:58+08:00">2022-11-05</time>
               </span>
 
           
@@ -239,6 +239,39 @@
 <li><p>日期：mmdddyyyy10.不是有效的 SAS 日期格式, DATEw.格式不能接受长度为 10。</p>
 </li>
 <li><p>print过程和viewtable窗口显示 SAS 数据集中的值。FSLIST 过程在外部文件中显示这些值。SAS 中没有list过程。</p>
+</li>
+<li><p>sas 在data步执行求和语句<code>sum+a</code>时，sum在每次迭代时会保留值；但是如果使用<code>sum</code>函数，即<code>sum=sum(sum,a)</code>或者<code>sum=sum+a</code>，那么需要加入<code>retain sum</code>语句以确保每次迭代PDV不会将值丢失</p>
+</li>
+<li><p>在使用<code>sum=sum+a</code>这种语句时，如果不对sum初始化，sas程序默认会将缺失值赋给sum，这导致所有的观测中sum的最终值都是缺失值”.”</p>
+</li>
+<li><p>mean函数不读取缺失的值和个数</p>
+</li>
+<li><p>sas默认数值型格式为12位，字符型是8位，注意对于浮点数，sas默认读取小数点后两位，被称之为BEST12.格式；如果这个数大于十二位，那么sas就会<strong>由大到小</strong>的位数一位一位读下去，小数点占一位。在<code>substr(a,1,3)</code>中，如果a是数值型变量，那么会先将a转换为字符串，记住是右对齐的，那么如果a没有12位数，前面则有前导空格填充，substr出来的也只有是空格</p>
+</li>
+<li><p><code>do until</code>至少执行一次</p>
+</li>
+<li><p>FREQ 程序无法创建平均值。CLASS 语句和 VAR 语句对于与 PRINT 过程一起使用无效。由于使用了 CLASS 语句，因此 MEANS 过程输出将同时具有 N 统计量和 N 个 观测统计量。</p>
+</li>
+<li><p>PAGESIZE&#x3D; SAS 系统选项控制组成 SAS 过程输出页面的行数。通过增加每页可用的行数，报表可以放在一页上。</p>
+</li>
+<li><p>SPLIT&#x3D; 选项指定如何拆分列标题。SPACE&#x3D;、LABEL&#x3D; 和BREAK &#x3D; 选项在 PROC 报表中无效。</p>
+</li>
+<li><p>在<code>sort by</code>语句中，<code>descending</code>对紧跟其后的变量都起作用</p>
+</li>
+<li><p>一些常见的语句</p>
+<ul>
+<li>CLASS语句中的变量称为分类变量，依据分类变量的不同取值可以将数据集中的观测划分为不同的分组类别。</li>
+<li>VAR语句中的变量称为分析变量，这些变量的值就是进行分析计算的对象。只有数值型变量才可以作为分析变量</li>
+<li>当没有定义分析变量时，在表格中显示的统计量默认为频数统计量N</li>
+</ul>
+</li>
+<li><p>数组array中常见的变量：_TEMPORARY_：临时变量，不会出现在最终的output中；_NUMBERIC_：包含所有数值型变量；_CHARACTER_包含所有字符型变量；_ALL_包含所有变量 </p>
+</li>
+<li><p>merge选项(in&#x3D;)可以指示数据集是否对当前观测值有贡献。如果 IN&#x3D; 变量的值为 0，则数据集对当前观测值没有贡献;如果值为 1，则数据集确实有助于当前观测值。其实意思是如果两个数据集都有，那么变量值为1，否则为0</p>
+</li>
+<li><p>define语句加上order选项可以排序，如<code>define age/order</code>对age进行升序排序</p>
+</li>
+<li><p>数据错误会导致读取缺失值，语法错误会导致sas程序停止</p>
 </li>
 </ul>
 
@@ -2653,7 +2686,7 @@ $$
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
