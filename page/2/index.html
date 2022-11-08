@@ -401,7 +401,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-08 11:47:15" itemprop="dateModified" datetime="2022-11-08T11:47:15+08:00">2022-11-08</time>
+                <time title="修改时间：2022-11-08 16:30:04" itemprop="dateModified" datetime="2022-11-08T16:30:04+08:00">2022-11-08</time>
               </span>
 
           
@@ -838,11 +838,12 @@
 <p>本章介绍了线性方程组、非线性方程组、常微分方程的$matlab$求解方法以及最优化问题的$matlab$实现方法</p>
 </blockquote>
 <h2 id="线性方程组求解"><a href="#线性方程组求解" class="headerlink" title="线性方程组求解"></a>线性方程组求解</h2><h3 id="直接求法"><a href="#直接求法" class="headerlink" title="直接求法"></a>直接求法</h3><p>1.左除法</p>
-<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; A=[xxx,xxx;xxx,xxx,...];</span><br><span class="line">&gt;&gt; B=[aaa;bbb;ccc;...];</span><br><span class="line">&gt;&gt; C=B/A;</span><br></pre></td></tr></table></figure>
+<p><strong>X&#x3D;A\B表示求矩阵方程AX＝B的解； X＝B&#x2F;A表示矩阵方程XA&#x3D;B的解</strong></p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; A=[xxx,xxx;xxx,xxx;...];</span><br><span class="line">&gt;&gt; B=[aaa;bbb;ccc;...];</span><br><span class="line">&gt;&gt; C=B/A;</span><br></pre></td></tr></table></figure>
 
 <p>2.分解法</p>
 <p>​	LU分解：将非奇异矩阵化为一个交换下三角形和一个上三角形矩阵的乘积形式</p>
-<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[L,U]=lu(X);		<span class="comment">% 上三角形L与下三角形L(行交换)，是满足X=LU。X必须为方阵</span></span><br><span class="line">[L,U,P]=lu(X);		<span class="comment">% P为置换矩阵，满足PX=LU</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[L,U]=lu(X);		<span class="comment">% 上三角形L与下三角形L(行交换)，是满足X=LU。X必须为方阵</span></span><br><span class="line">[L,U,P]=lu(X);		<span class="comment">% P为置换矩阵，满足PX=LU</span></span><br><span class="line"><span class="comment">% Matlab中已经内置了lu分解的求法 </span></span><br><span class="line">&gt;&gt; A=[xxx,xxx;xxx,xxx;...];</span><br><span class="line">&gt;&gt; B=[aaa;bbb;ccc;...];</span><br><span class="line">&gt;&gt; C=AB;			<span class="comment">% 通过AB,matkab会识别并直接给出C的值</span></span><br></pre></td></tr></table></figure>
 
 <p>​	QR分解：将X分解为一个正交矩阵Q和一个上三角矩阵R的乘积形式。注意只能对方阵进行QR分解</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[Q,R]=qr(X);</span><br><span class="line">[Q,R,E]=qr(X);		<span class="comment">% 与上面类似</span></span><br></pre></td></tr></table></figure>
