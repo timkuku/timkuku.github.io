@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="一些英语单词 preprocessor directive预处理器指令 preprocessing预处理 header头文件 declaration声明 variable变量 keyword关键字 identifier标识符（变量、函数或其他实体的名称） actual argument实际参数 calling function主调函数 newline character换行符 escape seq">
+<meta property="og:type" content="website">
+<meta property="og:title" content="C Primer Plus复习">
+<meta property="og:url" content="http://example.com/C-Primer-Plus%E5%A4%8D%E4%B9%A0.html">
+<meta property="og:site_name" content="Timkuku">
+<meta property="og:description" content="一些英语单词 preprocessor directive预处理器指令 preprocessing预处理 header头文件 declaration声明 variable变量 keyword关键字 identifier标识符（变量、函数或其他实体的名称） actual argument实际参数 calling function主调函数 newline character换行符 escape seq">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-11-10T11:02:16.276Z">
+<meta property="article:modified_time" content="2022-11-10T11:02:16.276Z">
+<meta property="article:author" content="Liao">
+<meta property="article:tag" content="Program">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/C-Primer-Plus%E5%A4%8D%E4%B9%A0">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>C Primer Plus复习 | Timkuku
+</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Timkuku</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">炳蔚内弼，虓阚外御</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+  
+  
+
+          <div class="content page posts-expand">
+            
+
+    
+    
+    
+    <div class="post-block" lang="zh-CN">
+      <header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">C Primer Plus复习
+</h1>
+
+<div class="post-meta">
+  
+
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <h1 id="一些英语单词"><a href="#一些英语单词" class="headerlink" title="一些英语单词"></a>一些英语单词</h1><ul>
+<li>preprocessor directive预处理器指令</li>
+<li>preprocessing预处理</li>
+<li>header头文件</li>
+<li>declaration声明</li>
+<li>variable变量</li>
+<li>keyword关键字</li>
+<li>identifier标识符（变量、函数或其他实体的名称）</li>
+<li>actual argument实际参数</li>
+<li>calling function主调函数</li>
+<li>newline character换行符</li>
+<li>escape sequence转义字符</li>
+<li>prototype函数原型（在函数头告知编译器在程序中要使用到该函数）也可以叫做function declaration</li>
+<li>function call函数调用</li>
+<li>function definition函数定义</li>
+<li>debug调试</li>
+<li>reserved identifier保留标识符</li>
+<li>constant常量</li>
+<li>initialize初始化</li>
+<li>bit、byte、word位、字节和字</li>
+<li>active position活跃位置</li>
+<li>exact-width integer type精确宽度整数类型</li>
+<li>minimum width type最小宽度类型</li>
+<li>fastest minimum width type最快最小宽度类型（我的评价是不如不翻）</li>
+<li>array数组</li>
+<li>character string字符串</li>
+<li>symbolic constant符号常量</li>
+<li>compile-time substitution编译时替换</li>
+<li>manifest constant明示常量，与符号常量一样的意思</li>
+<li>conversion specification转换说明</li>
+<li>block块</li>
+<li>operator运算符</li>
+<li>rvalue右值，现在等同于value of an expression</li>
+<li>modifiable lvalue可修改的左值，现在等同于object locator value</li>
+<li>lvalue左值</li>
+<li>data object数据对象</li>
+<li>operand运算对象</li>
+<li>addition operation加法运算符，subtraction operation减法运算符，binary operator二元运算符，unary operator一元运算符</li>
+<li>turncation截断</li>
+<li>modulus operation求模运算符</li>
+<li>increment operation递增运算符</li>
+<li>decrement operation递减运算符</li>
+<li>side effect副作用</li>
+<li>sequence point序列点</li>
+<li>compound statement复合语句(块)</li>
+<li>promotion升级（类型转换中的），demotion降级</li>
+<li>cast强制类型转换</li>
+<li>formal argument、formal parameter形参</li>
+<li>actual argument、actual parameter实参</li>
+<li>C99规定形参使用parameter,实参使用argument</li>
+<li>pseudocode伪代码</li>
+<li>equlity operator相等运算符</li>
+<li>iteration迭代</li>
+<li>entry condition入口条件</li>
+<li>infinite loop无限循环</li>
+<li>null statement空语句</li>
+<li>relational expression关系表达式</li>
+<li>relational operator关系运算符</li>
+<li>boolean variable布尔类型</li>
+<li>indifinite loop不确定循环</li>
+<li>counting loop计数循环</li>
+<li>exit-condition loop出口条件循环</li>
+<li>nested loop嵌套循环</li>
+<li>outer loop外层循环</li>
+<li>inner loop内层循环</li>
+<li>array数组</li>
+<li>element元素</li>
+<li>subscript下标</li>
+<li>indice索引</li>
+<li>offset偏移量</li>
+<li>modularity模块化</li>
+</ul>
+<h1 id="C语言概述"><a href="#C语言概述" class="headerlink" title="C语言概述"></a>C语言概述</h1><ul>
+<li>C程序的六种语句<ul>
+<li>标号语句</li>
+<li>复合语句</li>
+<li>表达式语句（如赋值表达式）</li>
+<li>选择语句</li>
+<li>迭代语句</li>
+<li>跳转语句</li>
+</ul>
+</li>
+<li>转义序列<ul>
+<li>\a警报   \b退格   \f换页  \n换行  \r回车  \t水平制表符  \v垂直制表符  \\反斜杠  \‘单引号  \“双引号  \?问号  \0oo八进制值  \xhh十六进制值</li>
+</ul>
+</li>
+<li>注释：<ul>
+<li>&#x2F;*xxx*&#x2F;</li>
+<li>&#x2F;&#x2F;xxx</li>
+</ul>
+</li>
+<li>变量命名<ul>
+<li>标识符只识别前63个字符；对于外部标识符，只允许使用31个字符</li>
+<li>大小写数字下划线，<strong>第一个字符不能是数字</strong></li>
+<li>大小写敏感</li>
+</ul>
+</li>
+<li>实际参数：实际的值；</li>
+<li>形式参数：用于储存值的变量；</li>
+<li>函数有函数头与函数体构成<ul>
+<li>函数头：函数名、传入该函数的信息类型、函数的返回值</li>
+<li>函数体：由花括号括起来。由语句、声明组成</li>
+</ul>
+</li>
+<li>提高可读性的技巧：<ul>
+<li>选择有意义的函数名</li>
+<li>写注释</li>
+<li>用空行分隔</li>
+<li>每条语句各占一行</li>
+</ul>
+</li>
+<li>多条声明：用逗号隔开</li>
+<li>打印多个变量：在最后需要用多个逗号隔开（与python的格式化输入不一样，python只需要%(x y)）</li>
+</ul>
+<h1 id="数据与C"><a href="#数据与C" class="headerlink" title="数据与C"></a>数据与C</h1><ul>
+<li><p>位、字节与字</p>
+<ul>
+<li>位，即计算机内存的基本构建块，可以表示0或者1</li>
+<li>字节，大部分字节都是8位</li>
+<li>字，设定计算机给定的自然储存单位，有8位，16位，32位，64位。字长越大，数据转移越快，允许访问的内存也更多</li>
+</ul>
+</li>
+<li><p>C语言基本数据类型</p>
+<ul>
+<li><p>浮点数类型（%a、%A、%e、%E、%f、%g、%G）</p>
+<ul>
+<li><p>float类型、double类型和long double类型</p>
+</li>
+<li><p>_Complex类型和_Imaginary类型，分别代表复数类型和系数类型，可以组合使用如</p>
+<p><code>double _Complex</code></p>
+</li>
+</ul>
+</li>
+<li><p>整数类型</p>
+<ul>
+<li>int类型（%d、%i、%u）<ul>
+<li>一般而言，储存一个int要占用一个机器字长（64位机子与32位都是占用32位即4个字节，可能是amd历史遗留问题）</li>
+<li>至少有4位整数可以这样表示<code>%.4d</code></li>
+</ul>
+</li>
+<li>char类型（%c、%s）<ul>
+<li>c语言把一字节设定为char占用的位数，即2^7-1</li>
+</ul>
+</li>
+<li><strong>可移植类型</strong>：stdint.h和inttypes.h<ul>
+<li>int32_t表示32位有符号整数类型，32位程序会将int32_t作为int的别名来处理数据</li>
+<li>int_least8_t最小8位宽度的整数类型</li>
+<li>int_fast8_t最快的8位宽度整数类型</li>
+<li>PRId32：打印32位有符号值的合适的转换说明</li>
+</ul>
+</li>
+<li>signed、unsigned：有没有符号</li>
+<li>_bool类型：0表示false,1表示true</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>转换说明：指定printf()使用什么格式来显示一个值，如%d、%f等（只能使用小写）</p>
+<ul>
+<li>常见的见上面</li>
+<li>%zd：用于修饰size_t类型的数据，size_f是sizeof的返回类型</li>
+<li>%p：指针</li>
+<li>%a、%A：p计数法、十六进制数和浮点数</li>
+<li>%s：字符串。这里需要注意一下<code>%.3s</code>表示只输出前3个字符</li>
+<li>%%：百分号</li>
+<li>%h：short类型</li>
+<li>%o、%#o：八进制，加上#显示0前缀</li>
+<li>%x、%#x：十六进制，加上#显示0x、0X前缀</li>
+<li>PRId32：上面说了，打印32位有符号值的合适的转换说明，在inttypes.h定义，例如会将PRId32替换成”d”，在c语言中会将多个连续的字符串组合成一个字符串，所以如你所想</li>
+</ul>
+</li>
+<li><p>short占用内存空间不多于int，long占用的存储空间不少于int</p>
+<table>
+<thead>
+<tr>
+<th>char</th>
+<th>short</th>
+<th>int</th>
+<th>long</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>2</td>
+<td>4</td>
+<td>8</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>long常量和long long常量</p>
+<ul>
+<li>建议在值的末尾加上L或者LL，同理，UL、ULL也一样。如7ULL，注意后缀大小写不敏感</li>
+</ul>
+</li>
+<li><p>C99规定趋零截断，即直接不要小数部分</p>
+</li>
+</ul>
+<h1 id="字符串和格式化输入输出"><a href="#字符串和格式化输入输出" class="headerlink" title="字符串和格式化输入输出"></a>字符串和格式化输入输出</h1><blockquote>
+<p>介绍scanf()和printf()函数，const关键字和strlen()函数、以及字符串、%s转换说明</p>
+</blockquote>
+<h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><ul>
+<li><p>C语言没有专门用于储存字符串的变量类型，字符串被储存在char类型的数组中，字符被储存在相邻的储存单位中，数组以<code>\0</code>这个空字符(null character)结尾，所以可用的比声明的少一个单位</p>
+</li>
+<li><p><code>%s</code>可以读取\打印字符串，例如</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> name[<span class="number">40</span>];</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>,name);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%s&quot;</span>,name);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>需要注意的是<code>%s</code>在遇到第一个空格就会停下来，<code>Tim kuku</code>只能读取到<code>Tim</code>，需要查看其他函数如<code>fgets()</code></p>
+</li>
+<li><p>字符串与字符的区别：<code>&quot;x&quot;</code>等于<code>&#39;x&#39;+&#39;\0&#39;</code></p>
+</li>
+<li><p><code>strlen()</code>可以读取字符串中字符与标点的数量</p>
+</li>
+<li><p><code>strlen()</code>与<code>sizeof()</code>的区别：<code>strlen</code>只是以字符量为单位读取<strong>用了的</strong>长度，<code>sizeof()</code>则以字节为单位是将<strong>一整块</strong>不管有没有用到的长度都读取进来</p>
+</li>
+<li><p>关于<code>sizeof</code>：当运算对象是类型时，需要使用圆括号，如<code>sizeof(char)</code>；当运算类型是特定值时，则可以写成<code>sizeof name或者sizeof 6.18</code>等。总之加上就肯定没错。</p>
+</li>
+</ul>
+<h2 id="常量和c预处理器"><a href="#常量和c预处理器" class="headerlink" title="常量和c预处理器"></a>常量和c预处理器</h2><blockquote>
+<p>有点类似于sas的宏处理器，不过c是编译时替换，而sas是先替换再编译</p>
+</blockquote>
+<ul>
+<li><p>define一般格式</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> NAME value		<span class="comment">//value可以是数值，可以是字符，也可以是字符串</span></span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>一些不成文的约定，如常量就使用大写来表示；常常用在名称前加上<code>c_</code>或者<code>k_</code>表示常量</p>
+</li>
+<li><p>const限定符：限定某个变量为只读</p>
+</li>
+</ul>
+<h2 id="printf-与scanf"><a href="#printf-与scanf" class="headerlink" title="printf()与scanf()"></a>printf()与scanf()</h2><h3 id="printf"><a href="#printf" class="headerlink" title="printf"></a>printf</h3><ul>
+<li><p>printf()的转换说明修饰符</p>
+<table>
+<thead>
+<tr>
+<th>修饰符</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>标记</td>
+<td>“-“左对齐；”+”显示值的正负号；空格表示若值为正则显示前导空格（不显示任何符号）,若为负则加上符号；”0”表示用前导零填充前面的空格</td>
+</tr>
+<tr>
+<td>数字</td>
+<td>最小字段精度。如果不能容纳该值，系统会使用更长的精度</td>
+</tr>
+<tr>
+<td>.数字</td>
+<td>精度。对于%e%E%f，显示小数点左边的位数；对于%g%G,表示有效数字最大位数；对于%s表示打印字符最大数量；对于整型的转换说明，表示待打印数字的最小位数，如果不够则+0；%.f等于%.0f</td>
+</tr>
+<tr>
+<td>h</td>
+<td>和整型转换说明一起使用，表示short int或者unsigned short int类型</td>
+</tr>
+<tr>
+<td>j</td>
+<td>和整型转换说明一起使用，表示intmax_t或者uintmax_t类型的值</td>
+</tr>
+<tr>
+<td>其余</td>
+<td>结合转换说明来思考，差不多的</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>float没有专门的转换说明，c编译时默认将float转换为double</p>
+</li>
+<li><p>注意你之前的想的限制<code>%3s</code>，其实是<code>%.3s</code></p>
+</li>
+<li><p>关于参数传递：</p>
+<ul>
+<li>因实现而异。大致思想：程序根据参数的<strong>数据类型</strong>在栈中划分区域并存入数据，读取时则按照<strong>转换说明</strong>读取栈中的数据</li>
+</ul>
+</li>
+<li><p>printf()返回值是<strong>打印字符的个数</strong></p>
+</li>
+<li><p>printf函数打印较长字段的方法：</p>
+<ul>
+<li>多个printf</li>
+<li>使用<code>\</code>符号</li>
+<li>使用多个<code>&quot;xxx&quot; &quot;xxx&quot;</code>符号，其中字符串之间是空格，此时c语言会将字符串连起来</li>
+</ul>
+</li>
+<li><p>通过指定字段宽度使输出美观一点，如%5.d等</p>
+</li>
+</ul>
+<h3 id="scanf"><a href="#scanf" class="headerlink" title="scanf"></a>scanf</h3><blockquote>
+<p>在键盘上输入的都是字符，scanf就是将字符转换为数值。与printf使用时的主要区别是参数列表，scanf是指针</p>
+</blockquote>
+<ul>
+<li><p>参数列表规则：(想象一下指针，其实很明了)</p>
+<ul>
+<li>读取基本变量类型是，要加&amp;</li>
+<li>将字符串读入字符数组时，不要加&amp;</li>
+</ul>
+</li>
+<li><p>在使用不读取空格的转换说明时，空格、制表符、换行都是可以作为间隔来隔开两个变量的值的</p>
+</li>
+<li><p>除了<code>%c</code>之外，大部分转换说明都会<strong>跳过输入时前面的空白</strong>，从<strong>第一个非空白处</strong>读入字符或者数据</p>
+</li>
+<li><p>关于格式字符串</p>
+<ul>
+<li><p>C语言允许将普通字符放在格式字符串中，但是读取输入时必须要符合相应的格式</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">scanf</span>(<span class="string">&quot;%d,%d&quot;</span>,&amp;n,&amp;m);</span><br></pre></td></tr></table></figure>
+
+<p>在输入时需要这样输入：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3,4	或者 3,  4(两个输入中间需要上面格式字符串中的逗号)</span><br></pre></td></tr></table></figure>
+
+<p>如果想让<code>%c</code>也可以使用这种输入方法，可以这样写</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">scanf</span>(<span class="string">&quot;% c&quot;</span>,num);			<span class="comment">//%和c中间加一个空格表示跳过所有空白</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>scanf返回值：返回读取成功的项数；<strong>如果读取有问题，则返回0</strong>；如果读取到文件末尾，则返回EOF(在stdio.h中定义为<code>#define EOF (-1)</code>)</p>
+</li>
+<li><p>这里需要注意的是，scanf如果读到不符合要求的值，就会停止读取并将这个值放回输入行列中等待下一个句子来读取，那么此时如果您使用了while语句，就会一直读取该值，然后一直做<code>获取-不符合-放回-再获取</code>这种循环中</p>
+</li>
+</ul>
+<h3 id="修饰符"><a href="#修饰符" class="headerlink" title="*修饰符"></a>*修饰符</h3><ul>
+<li><p>printf函数中：可以使用*代替字段宽度，例如已经赋值abc&#x3D;2,bcd&#x3D;3,那么</p>
+<p><code>printf(&quot;%*.*d&quot;,abc,bcd,width);</code>与<code>printf(&quot;%2.3d&quot;,width);</code>一样</p>
+</li>
+<li><p>scanf函数中：把*放在%和转换字符之间，会使得scanf()跳过相应的输入项</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">输入 <span class="number">23</span> <span class="number">34</span> <span class="number">54</span></span><br><span class="line">程序：</span><br><span class="line">……</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">&quot;%*d %*d %d&quot;</span>,&amp;n);</span><br><span class="line">……</span><br><span class="line">那么此时只有n有赋值，且值为<span class="number">54</span>,因为前两项跳过了</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="运算符、表达式和语句"><a href="#运算符、表达式和语句" class="headerlink" title="运算符、表达式和语句"></a>运算符、表达式和语句</h1><h2 id="基本运算符"><a href="#基本运算符" class="headerlink" title="基本运算符"></a>基本运算符</h2><blockquote>
+<p>大部分详细使用说明在英语单词处已经介绍了</p>
+</blockquote>
+<ul>
+<li>优先级：除了一元运算符的<code>+、-和=</code>是从右往左外，其他顺序都是从左往右。注意只有共享同一运算对象的同一等级的运算符才可以在混合使用中从左往右</li>
+<li>注意sizeof是一元运算符</li>
+<li>右值，即可以赋值给左值的量，且本身不是左值，通常是常量或者表达式</li>
+<li>可修改的左值，即可赋值的实体</li>
+<li>左值，用于标识对象的标签</li>
+<li>数据对象，用于储存值的数据存储区域</li>
+<li>C99规定趋零截断，即直接不要小数部分</li>
+</ul>
+<h2 id="其他运算符"><a href="#其他运算符" class="headerlink" title="其他运算符"></a>其他运算符</h2><ul>
+<li>求模运算符只能用于整数，不能用于浮点数<ul>
+<li>a-(a&#x2F;b)*b等价于a%b</li>
+</ul>
+</li>
+<li>递增运算符，有前缀与后缀模式</li>
+<li>递减运算符，一个样<ul>
+<li>注意一下，递增递减运算符只能影响一个可修改的左值，如<code>(x*y)++</code>是不允许的</li>
+<li>有以下原则，有则尽量不使用递增递减运算符：<ul>
+<li>一个变量出现在一个函数的多个参数中</li>
+<li>一个变量多次出现在一个表达式中</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="表达式和语句"><a href="#表达式和语句" class="headerlink" title="表达式和语句"></a>表达式和语句</h2><blockquote>
+<p>c语言基本程序步骤由语句组成，大多数语句由表达式构成。还有该书中译版作者一直强调没有所谓的赋值语句和函数调用语句，正确的是赋值<strong>表达式</strong>语句和函数<strong>表达式</strong>语句</p>
+</blockquote>
+<ul>
+<li><p>表达式由运算符和运算对象组成，每个表达式都有值</p>
+</li>
+<li><p>根据c标准，声明不是表达式。如<code>int a;</code>不是表达式，所以该句子没有值。</p>
+</li>
+<li><p>副作用是对数据对象或文件的修改，c程序的主要目的是求值，我们通常利用它的副作用</p>
+</li>
+<li><p>序列点是程序执行的点，在该点上，所有的副作用都在下一步之前发生。一个分号或者一个完整的表达式的结束都是一个序列点。这里注意<code>while()</code>判断条件是一个完整的表达式</p>
+</li>
+<li><p>强制类型转换：</p>
+<ul>
+<li><p>格式</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(type)，如</span><br><span class="line">a = (<span class="type">int</span>)<span class="number">1.6</span>+(<span class="type">int</span>)<span class="number">2.5</span>;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>声明函数创建了形式参数，函数调用传递的值是实际参数</p>
+</li>
+<li><p>原型是函数的声明，描述了函数的返回值和参数</p>
+</li>
+</ul>
+<h1 id="控制语句：循环"><a href="#控制语句：循环" class="headerlink" title="控制语句：循环"></a>控制语句：循环</h1><blockquote>
+<p>for、while、do while以及fabs()函数</p>
+</blockquote>
+<h2 id="while循环"><a href="#while循环" class="headerlink" title="while循环"></a>while循环</h2><blockquote>
+<p>入口条件循环</p>
+</blockquote>
+<ul>
+<li><p>while循环的伪代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">获得第一个用于测试的值</span><br><span class="line">当测试为真时</span><br><span class="line">	处理值</span><br><span class="line">	获取下一个值</span><br><span class="line">	</span><br><span class="line">简化版本：</span><br><span class="line">当测试值与判断值都成功</span><br><span class="line">	处理值</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关于空语句，可以使用下面类似的语句跳过整数输入</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">&quot;%ld&quot;</span>,&amp;num)==<span class="number">1</span>)</span><br><span class="line">    ;			<span class="comment">//注意分号，分号就是一个空语句，分号最好单独一行，后面的continue相同作用</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="用关系运算符和表达式比较大小"><a href="#用关系运算符和表达式比较大小" class="headerlink" title="用关系运算符和表达式比较大小"></a>用关系运算符和表达式比较大小</h2><ul>
+<li><p>表达式为真，值为1；反之值为0。一般而言，所有非零值都为真，只有0视为假</p>
+</li>
+<li><p>注意赋值表达式的值就是赋值左侧的值</p>
+</li>
+<li><p>_bool类型，只能说这玩意聊胜于无</p>
+</li>
+<li><p>技巧：</p>
+<ul>
+<li><p><code>while(ghost)</code>与<code>while(ghost != 0)</code>相同效应</p>
+</li>
+<li><p>对于浮点数，c提供了一个数学函数（在math.h声明）来比较浮点数的大小<code>fabs()</code>，函数返回的是绝对值，这样可以避免一些计算机会将1存为0.9999这种情况。使用时<code>fab(a-b) &gt; 1</code>这样比较</p>
+</li>
+<li><p>为了避免出现<code>=</code>与<code>==</code>混淆的情况，可以尝试将常量放到比较符号的左侧，例如：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">5</span> == a;</span><br></pre></td></tr></table></figure>
+
+<p>原因是c不允许对常量赋值，那么不小心将<code>==</code>打成<code>=</code>时就会直接报错，防止了自己的粗心</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h2><blockquote>
+<p>入口条件循环，为计数循环量身打造的语句</p>
+</blockquote>
+<ul>
+<li><p>一般格式：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (initialize; test; update)</span><br><span class="line">	statement;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>说明：</p>
+<ul>
+<li>initialize在循环执行前只执行一次，有个技巧是当initialize为<code>printf(&quot;Please enter your num!&quot;)</code>就可以实现循环前输出一个提示语句</li>
+<li>分号不能省，其他语句可以省</li>
+</ul>
+</li>
+</ul>
+<h2 id="do-while循环"><a href="#do-while循环" class="headerlink" title="do while循环"></a>do while循环</h2><blockquote>
+<p>出口条件循环</p>
+</blockquote>
+<ul>
+<li><p>通用形式</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">do</span></span><br><span class="line">	statement</span><br><span class="line"><span class="title function_">while</span><span class="params">(expression)</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>想想之前sas做的笔记，<code>do until</code>与c语言的<code>do while</code>都是至少循环一次循环体</p>
+</li>
+</ul>
+
+      </div>
+      
+      
+      
+    </div>
+    
+
+    
+    
+    
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E8%8B%B1%E8%AF%AD%E5%8D%95%E8%AF%8D"><span class="nav-number">1.</span> <span class="nav-text">一些英语单词</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C%E8%AF%AD%E8%A8%80%E6%A6%82%E8%BF%B0"><span class="nav-number">2.</span> <span class="nav-text">C语言概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E4%B8%8EC"><span class="nav-number">3.</span> <span class="nav-text">数据与C</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA"><span class="nav-number">4.</span> <span class="nav-text">字符串和格式化输入输出</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">4.1.</span> <span class="nav-text">字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E9%87%8F%E5%92%8Cc%E9%A2%84%E5%A4%84%E7%90%86%E5%99%A8"><span class="nav-number">4.2.</span> <span class="nav-text">常量和c预处理器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#printf-%E4%B8%8Escanf"><span class="nav-number">4.3.</span> <span class="nav-text">printf()与scanf()</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#printf"><span class="nav-number">4.3.1.</span> <span class="nav-text">printf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scanf"><span class="nav-number">4.3.2.</span> <span class="nav-text">scanf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="nav-number">4.3.3.</span> <span class="nav-text">*修饰符</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6%E3%80%81%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%92%8C%E8%AF%AD%E5%8F%A5"><span class="nav-number">5.</span> <span class="nav-text">运算符、表达式和语句</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">5.1.</span> <span class="nav-text">基本运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">5.2.</span> <span class="nav-text">其他运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%92%8C%E8%AF%AD%E5%8F%A5"><span class="nav-number">5.3.</span> <span class="nav-text">表达式和语句</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E8%AF%AD%E5%8F%A5%EF%BC%9A%E5%BE%AA%E7%8E%AF"><span class="nav-number">6.</span> <span class="nav-text">控制语句：循环</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#while%E5%BE%AA%E7%8E%AF"><span class="nav-number">6.1.</span> <span class="nav-text">while循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E5%85%B3%E7%B3%BB%E8%BF%90%E7%AE%97%E7%AC%A6%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%AF%94%E8%BE%83%E5%A4%A7%E5%B0%8F"><span class="nav-number">6.2.</span> <span class="nav-text">用关系运算符和表达式比较大小</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#for%E5%BE%AA%E7%8E%AF"><span class="nav-number">6.3.</span> <span class="nav-text">for循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#do-while%E5%BE%AA%E7%8E%AF"><span class="nav-number">6.4.</span> <span class="nav-text">do while循环</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Liao</p>
+  <div class="site-description" itemprop="description">We all have moments of desperation. But if we can face them head on, thats when we find out just how strong we really are.建立我自己的小站，记录自己的成长计划。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Liao</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
