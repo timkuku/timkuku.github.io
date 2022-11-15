@@ -271,6 +271,13 @@
 
               <time title="创建时间：2022-11-10 19:02:16" itemprop="dateCreated datePublished" datetime="2022-11-10T19:02:16+08:00">2022-11-10</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-15 22:05:07" itemprop="dateModified" datetime="2022-11-15T22:05:07+08:00">2022-11-15</time>
+              </span>
 
           
 
@@ -354,6 +361,10 @@
 <li>indice索引</li>
 <li>offset偏移量</li>
 <li>modularity模块化</li>
+<li>driver驱动程序</li>
+<li>branching statement分支语句</li>
+<li>selection statement选择语句</li>
+<li>flag标记</li>
 </ul>
 <h1 id="C语言概述"><a href="#C语言概述" class="headerlink" title="C语言概述"></a>C语言概述</h1><ul>
 <li>C程序的六种语句<ul>
@@ -713,6 +724,125 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">do</span></span><br><span class="line">	statement</span><br><span class="line"><span class="title function_">while</span><span class="params">(expression)</span>;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>想想之前sas做的笔记，<code>do until</code>与c语言的<code>do while</code>都是至少循环一次循环体</p>
+</li>
+</ul>
+<h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><ul>
+<li><p>声明方式：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> a[<span class="number">20</span>];		<span class="comment">/*20指得是a数组的长度，索引从0到19/</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><ul>
+<li>函数原型：在前面就声明需要使用到这个函数（需要加分号）</li>
+<li>函数调用：顾名思义</li>
+<li>函数定义：定义该函数的行为和返回值（不需要加分号）</li>
+</ul>
+<h1 id="控制语句：分支和跳转"><a href="#控制语句：分支和跳转" class="headerlink" title="控制语句：分支和跳转"></a>控制语句：分支和跳转</h1><blockquote>
+<p>if else switch continue break case default goto</p>
+</blockquote>
+<h2 id="if-else语句"><a href="#if-else语句" class="headerlink" title="if else语句"></a>if else语句</h2><ul>
+<li><p>一般格式</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (expression)</span><br><span class="line">	statement;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">	statement;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对字符输入输出函数<code>getchar()</code>和<code>putchar()</code>（只处理字符）</p>
+<ul>
+<li><code>getchar</code>函数不带有任何参数，将输入列表中读取下一个字符</li>
+</ul>
+</li>
+<li><p>ctype.h</p>
+<blockquote>
+<p>不会修改原来的字符，只会输出转换后的字符</p>
+</blockquote>
+<p>以下是字符测试函数</p>
+<table>
+<thead>
+<tr>
+<th>函数名</th>
+<th>函数为真时的参数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>isslnum</td>
+<td>字母数字</td>
+</tr>
+<tr>
+<td>isalpha</td>
+<td>字母</td>
+</tr>
+<tr>
+<td>isblank</td>
+<td>空格(空格、水平制表符、换行符)</td>
+</tr>
+<tr>
+<td>iscntrl</td>
+<td>控制字符，如Ctrl+B</td>
+</tr>
+<tr>
+<td>isdigit</td>
+<td>数字</td>
+</tr>
+<tr>
+<td>isgraph</td>
+<td>出空格外任意可打印字符</td>
+</tr>
+<tr>
+<td>islower</td>
+<td>小写</td>
+</tr>
+<tr>
+<td>isprint</td>
+<td>可打印字符</td>
+</tr>
+<tr>
+<td>ispunct</td>
+<td>标点符号</td>
+</tr>
+<tr>
+<td>isspace</td>
+<td>空白字符(范围比isblank广)</td>
+</tr>
+<tr>
+<td>isupper</td>
+<td>大写</td>
+</tr>
+<tr>
+<td>isxdigit</td>
+<td>十六进制数字符</td>
+</tr>
+</tbody></table>
+<p>以下是字符映射函数</p>
+<table>
+<thead>
+<tr>
+<th>函数名</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>tolower</td>
+<td>大写变小写，或者不变</td>
+</tr>
+<tr>
+<td>toupper</td>
+<td>小写变大写，或者不变</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>else if</p>
+</li>
+<li><p>配对准则：如果没有花括号，else与离它最近的if配对</p>
+</li>
+<li><p>关于标记：在进入循环时，可以设定某个变量为某一个值如1，然后在内循环的语句中设置该变量为0。这样在该循环体结束后可以通过根据该变量的数值是否为1来判断该变量是否进入了内循环</p>
+</li>
+</ul>
+<h2 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h2><blockquote>
+<p>&amp;&amp; || ! (与或非)这个不用多说了吧</p>
+</blockquote>
+<ul>
+<li><p>备选拼写iso646.h</p>
+<blockquote>
+<p>将and、or、not代替&amp;&amp;、||、!</p>
+</blockquote>
+</li>
+<li><p>关于求值顺序，逻辑运算符的顺序都是从左到右的，但要注意<code>&amp;&amp;</code>和<code>||</code>都是序列点，所有的副作用都会在序列点前完成</p>
 </li>
 </ul>
 
