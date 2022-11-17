@@ -276,7 +276,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-15 22:05:07" itemprop="dateModified" datetime="2022-11-15T22:05:07+08:00">2022-11-15</time>
+                <time title="修改时间：2022-11-17 23:57:18" itemprop="dateModified" datetime="2022-11-17T23:57:18+08:00">2022-11-17</time>
               </span>
 
           
@@ -365,6 +365,13 @@
 <li>branching statement分支语句</li>
 <li>selection statement选择语句</li>
 <li>flag标记</li>
+<li>conditional expression条件表达式</li>
+<li>input输入</li>
+<li>output输出</li>
+<li>buffer缓冲区</li>
+<li>low-level I&#x2F;O底层I&#x2F;O</li>
+<li>standard I&#x2F;O package标准I&#x2F;O包</li>
+<li>stream流</li>
 </ul>
 <h1 id="C语言概述"><a href="#C语言概述" class="headerlink" title="C语言概述"></a>C语言概述</h1><ul>
 <li>C程序的六种语句<ul>
@@ -845,7 +852,53 @@
 <li><p>关于求值顺序，逻辑运算符的顺序都是从左到右的，但要注意<code>&amp;&amp;</code>和<code>||</code>都是序列点，所有的副作用都会在序列点前完成</p>
 </li>
 </ul>
-
+<h2 id="条件运算符"><a href="#条件运算符" class="headerlink" title="条件运算符?:"></a>条件运算符<code>?:</code></h2><blockquote>
+<p>C语言中唯一三元表达式</p>
+</blockquote>
+<ul>
+<li><p>通用形式</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">expression ? action1 : action2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果<code>expression</code>为真，那么整个表达式的值为<code>action1</code>，否则值为<code>action2</code></p>
+</li>
+</ul>
+<h2 id="continue和break"><a href="#continue和break" class="headerlink" title="continue和break"></a>continue和break</h2><blockquote>
+<p>根据循环体的测试结果忽略一部分循环内容，或者结束</p>
+</blockquote>
+<ul>
+<li>continue：跳过本次迭代剩余部分内容（！记住是跳过本次迭代的剩余部分，这部分代码是属于循环体而不是分支的！所以在<code>if</code>中的话不是在<code>if</code>里面迭代！）</li>
+<li>对于while类型的循环体，是直接进入到下一次迭代；对于for循环体，则是<strong>执行完第三个表达式</strong>再进行下一次迭代</li>
+<li>break也一样，是终止他所在的最近的循环</li>
+<li>对于while和for循环，break都是直接跳过迭代，<strong>直接执行循环的下一个语句</strong>，这点与continue不同</li>
+<li>break可以用于switch，而continue不可以</li>
+</ul>
+<h2 id="switch和break"><a href="#switch和break" class="headerlink" title="switch和break"></a>switch和break</h2><ul>
+<li><p>一般格式</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span>(ch)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">case</span> 常量<span class="number">1</span>:</span><br><span class="line">		语句</span><br><span class="line">	<span class="keyword">case</span> 常量<span class="number">2</span>:</span><br><span class="line">    <span class="keyword">case</span> 常量<span class="number">3</span>：		<span class="comment">//多重标签</span></span><br><span class="line">		语句</span><br><span class="line">	<span class="keyword">default</span>:</span><br><span class="line">		语句</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>涉及到浮点数就使用<code>if else</code>，其他情况一样，switch执行更快</p>
+</li>
+</ul>
+<h2 id="goto语句"><a href="#goto语句" class="headerlink" title="goto语句"></a>goto语句</h2><blockquote>
+<p>建议少用，但是在一连串内循环中用goto跳出来也未尝不是一个好选择</p>
+</blockquote>
+<ul>
+<li><p>一般格式</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">goto</span> label;</span><br><span class="line">label:statement;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="字符输入与输出及其验证"><a href="#字符输入与输出及其验证" class="headerlink" title="字符输入与输出及其验证"></a>字符输入与输出及其验证</h1><blockquote>
+<p>有缓冲、无缓冲输入、文件结尾EOF、重定向、</p>
+</blockquote>
+<h2 id="缓冲区"><a href="#缓冲区" class="headerlink" title="缓冲区"></a>缓冲区</h2><ul>
+<li>一般系统分为<strong>有缓冲</strong>和<strong>无缓冲</strong>。有缓冲分为<strong>完全缓冲I&#x2F;O</strong>和<strong>行缓冲I&#x2F;O</strong>,完全缓冲I&#x2F;O指的是缓冲区完全填满后才刷新缓冲区；行缓冲I&#x2F;O指的是出现换行符时刷新缓冲区</li>
+<li>目前ANSI C规定是缓冲的</li>
+</ul>
+<h2 id="结束键盘输入"><a href="#结束键盘输入" class="headerlink" title="结束键盘输入"></a>结束键盘输入</h2><ul>
+<li>从概念上看，C处理的是流（理想化的输入输出数据流）而不是直接处理文件</li>
+<li>getchar()和scanf()检测到文件结尾时会返回<code>EOF</code>，在<code>stdio.h</code>中有<code>#define EOF (-1)</code>，在键盘上通过键入<code>Ctrl d</code>来输入EOF(但是为什么我用<code>Ctrl z</code>也ok呢？)</li>
+<li>getchar()实际返回值类型是int</li>
+</ul>
+<h2 id="重定向和文件"><a href="#重定向和文件" class="headerlink" title="重定向和文件"></a>重定向和文件</h2>
       
     </div>
 
