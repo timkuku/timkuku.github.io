@@ -179,7 +179,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-13 11:59:07" itemprop="dateModified" datetime="2022-11-13T11:59:07+08:00">2022-11-13</time>
+                <time title="修改时间：2022-11-19 20:45:06" itemprop="dateModified" datetime="2022-11-19T20:45:06+08:00">2022-11-19</time>
               </span>
 
           
@@ -331,7 +331,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CREATE [UNIQUE] INDEX index_name ON </span><br><span class="line">	Table_name(colum_name [ASC/DESC][,colum_name[ASC/DESC]]......)</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>查看索引</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">explain select sNO from student;	&#x27;&#x27;&#x27;查看sNO的索引信息，其中type一栏如果是index就是索引&#x27;&#x27;&#x27;</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">explain select sNO from student;	&#x27;&#x27;&#x27;查看sNO的索引信息，其中type一栏如果是index就是索引&#x27;&#x27;&#x27;</span><br><span class="line">&#x27;&#x27;&#x27;或者&#x27;&#x27;&#x27;</span><br><span class="line">show index from tablename;</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h2 id="储存"><a href="#储存" class="headerlink" title="储存"></a>储存</h2><blockquote>
 <p>存储过程是一种数据库对象，是一组预先编译好的SQL语句的集合。将执行计划存储在数据库的服务器中，需要的时候调用执行。它的运行速度比独立运行同样的程序要快</p>
@@ -402,6 +402,45 @@
 </li>
 <li><p>source恢复</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 进入到mysql中</span><br><span class="line">mysql&gt;source 备份文件.sql</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="关于范式"><a href="#关于范式" class="headerlink" title="关于范式"></a>关于范式</h2><blockquote>
+<p>在知乎上有很清楚的<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/24696366?utm_id=0">讲解</a>，关于1nf、2nf、3nf。bcnf的讲解没那么清楚</p>
+</blockquote>
+<h3 id="一些概念"><a href="#一些概念" class="headerlink" title="一些概念"></a>一些概念</h3><ul>
+<li><p>码：唯一标识实体的属性或属性组合称为码</p>
+</li>
+<li><p>候选码(关键字)：某一属性组的值能唯一标识一个元组而其子集不能（去掉任意一个属性都不能标识该元组），则称该属性组为候选码。（可以唯一标识一个元组的最少的属性集合）</p>
+</li>
+<li><p>主码&#x3D;主键，即候选码中选择其一</p>
+</li>
+<li><p>主属性，即一个属性只要在任何一个候选码中出现过，这个属性就是主属性。（一个或者多个）</p>
+</li>
+<li><p>非主属性，即不是主属性的属性</p>
+</li>
+<li><p>函数依赖与属性的关系</p>
+<p>设R(U)是属性集U上的关系模式，X、Y是U的子集。</p>
+<p>如果X和Y之间是一对一（1:1）关系，如学校和校长，则存在函数依赖X→Y和Y→X。<br>如果X和Y之间是一对多（1:n）关系，如年龄和姓名，则存在函数依赖Y→X。<br>如果X和Y之间是多对多（m:n）关系，如学生和课程，则X和Y之间不存在函数依赖。<br>————————————————<br>版权声明：本文为CSDN博主「一骑走烟尘」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/zgcr654321/article/details/93385986">https://blog.csdn.net/zgcr654321/article/details/93385986</a></p>
+</li>
+</ul>
+<h3 id="第一范式"><a href="#第一范式" class="headerlink" title="第一范式"></a>第一范式</h3><ul>
+<li>规则：属性不可再分</li>
+<li>意思就是一张表中每个属性不能有二级属性</li>
+<li>数据库中不可能实现不满足第一范式的关系</li>
+</ul>
+<h3 id="第二范式"><a href="#第二范式" class="headerlink" title="第二范式"></a>第二范式</h3><ul>
+<li>消除了非主属性对于码的<strong>部分</strong>函数依赖</li>
+<li>这句话突出的其实是部分而不是函数依赖</li>
+<li>拆部分的X和Y</li>
+</ul>
+<h3 id="第三范式"><a href="#第三范式" class="headerlink" title="第三范式"></a>第三范式</h3><ul>
+<li>消除了非主属性对于码的传递函数依赖</li>
+<li>如假如a是主键，b、c是非主属性，存在b依赖于a、c依赖于a(这是必然的，因为a是主键)这种依赖外，还存在b依赖于c,那么就认为这种不符合3nf,需要分解</li>
+<li>拆传递的</li>
+</ul>
+<h3 id="bcnf"><a href="#bcnf" class="headerlink" title="bcnf"></a>bcnf</h3><ul>
+<li>消除<strong>主属性</strong>对于码的部分与传递函数依赖</li>
+<li>注意上述说的是<strong>码</strong>而不是<strong>主码</strong></li>
+<li>拆码的</li>
 </ul>
 
       
