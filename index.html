@@ -276,7 +276,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-19 20:01:37" itemprop="dateModified" datetime="2022-11-19T20:01:37+08:00">2022-11-19</time>
+                <time title="修改时间：2022-11-22 21:50:19" itemprop="dateModified" datetime="2022-11-22T21:50:19+08:00">2022-11-22</time>
               </span>
 
           
@@ -373,6 +373,9 @@
 <li>standard I&#x2F;O package标准I&#x2F;O包</li>
 <li>stream流</li>
 <li>text file文本文件</li>
+<li>signature签名，指函数的参数类型与返回类型</li>
+<li>called function被调函数</li>
+<li>calling function主调函数</li>
 </ul>
 <h1 id="C语言概述"><a href="#C语言概述" class="headerlink" title="C语言概述"></a>C语言概述</h1><ul>
 <li>C程序的六种语句<ul>
@@ -917,7 +920,16 @@
 <p>来实现跳过后面的字符（包括换行符），原因是getchar是会读取下一个字符的，所以上面语句生效时需要在前面有个while循环之类的东西接住你要读取的数据，如</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>((ch=getchar()!=<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">&#123;</span><br><span class="line">	xxx;</span><br><span class="line">	<span class="keyword">if</span>(getchar()!=<span class="string">&#x27;\n&#x27;</span>)	<span class="comment">//额外使用一个getchar()来读取\n,使得程序得以跳过回车键以及剩下的句子</span></span><br><span class="line">		continus;		<span class="comment">//如果想单独去掉\n。，我认为可以直接使用getchar()来跳过换行符</span></span><br><span class="line">	xxx;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h2 id="输入验证"><a href="#输入验证" class="headerlink" title="输入验证"></a>输入验证</h2><h2 id="菜单浏览"><a href="#菜单浏览" class="headerlink" title="菜单浏览"></a>菜单浏览</h2><h1 id="函数-1"><a href="#函数-1" class="headerlink" title="函数"></a>函数</h1>
+<h2 id="输入验证"><a href="#输入验证" class="headerlink" title="输入验证"></a>输入验证</h2><h2 id="菜单浏览"><a href="#菜单浏览" class="headerlink" title="菜单浏览"></a>菜单浏览</h2><h1 id="函数-1"><a href="#函数-1" class="headerlink" title="函数"></a>函数</h1><blockquote>
+<p>可以将函数看作是黑盒，所以动手编程前，要知道如何定义、编写函数并且实现函数间的通信</p>
+</blockquote>
+<h2 id="定义带形参的函数"><a href="#定义带形参的函数" class="headerlink" title="定义带形参的函数"></a>定义带形参的函数</h2><ul>
+<li>要求每个形参前面都要指定参数类型，<code>a(int x,y,z)</code>就不允许，<code>a(int x, int y, int z)</code>就允许</li>
+<li>形参中的变量名可以省略，如<code>a(int, int)</code></li>
+<li>实参被求值后复制给形参</li>
+<li>return的两个作用：1.返回值 2.终止函数</li>
+</ul>
+
       
     </div>
 
