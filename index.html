@@ -2728,7 +2728,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-26 21:41:03" itemprop="dateModified" datetime="2022-11-26T21:41:03+08:00">2022-11-26</time>
+                <time title="修改时间：2022-11-28 20:51:43" itemprop="dateModified" datetime="2022-11-28T20:51:43+08:00">2022-11-28</time>
               </span>
 
           
@@ -2796,7 +2796,7 @@
 </li>
 <li><p>2、误差方差$\sigma^2$的估计</p>
 <p>残差的意思为拟合值与观测值的差，这是由其定义，即残差包含那些不可表现出来的误差，所决定的。</p>
-<p>那么由上述的思路，我们从正规矩阵可以通过将自变量的各组观测值带入回归方程，得到Y的各拟合值：<br>$$<br>\hat Y&#x3D;X\hat \beta&#x3D;X(X^TX)^{-1}X^TY&#x3D;HY<br>$$<br>或者可以干脆写出残差向量：<br>$$<br>\hat \epsilon&#x3D;Y-\hat Y&#x3D;Y-HY&#x3D;(I-H)Y<br>$$<br>那么就可以得到<em><strong>SSE</strong></em>(Sum of Squares Error):<br>$$<br>SSE&#x3D;\sum\epsilon^2&#x3D;\epsilon^T\epsilon<br>$$<br>同样易得<em><strong>MSE</strong></em>(Means Squares Error):<br>$$<br>MSE&#x3D;\frac{SSE}{n-p}&#x3D;\frac{\epsilon^T\epsilon}{n-p}<br>$$<br>另外我们可以得到随机误差项$\epsilon$与方差$\sigma^2$的关系</p>
+<p>那么由上述的思路，我们从正规矩阵可以通过将自变量的各组观测值带入回归方程，得到Y的各拟合值：<br>$$<br>\hat Y&#x3D;X\hat \beta&#x3D;X(X^TX)^{-1}X^TY&#x3D;HY<br>$$<br>或者可以干脆写出残差向量：<br>$$<br>\hat \epsilon&#x3D;Y-\hat Y&#x3D;Y-HY&#x3D;(I-H)Y<br>$$<br>那么就可以得到<em><strong>SSE</strong></em>(Sum of Squares Error):(其中Y为因变量观测值向量，X为设计矩阵)<br>$$<br>SSE&#x3D;\sum\epsilon^2&#x3D;\epsilon^T\epsilon&#x3D;Y^T(I-X(X^TX)^{-1}X^T)Y<br>$$<br>同样易得<em><strong>MSE</strong></em>(Means Squares Error):<br>$$<br>MSE&#x3D;\frac{SSE}{n-p}&#x3D;\frac{\epsilon^T\epsilon}{n-p}<br>$$<br>另外我们可以得到随机误差项$\epsilon$与方差$\sigma^2$的关系</p>
 </li>
 <li><p>3、离差平方和<strong>SST</strong>(Total Sum of Squares)</p>
 <p>离差平方和反应的是$y_1,y_2,……,y_n$与$\bar y&#x3D;\frac 1n\sum y_i$的变化量，即<br>$$<br>SST&#x3D;\sum\limits_{i&#x3D;1}^{n}(y_i-\bar y)^2<br>$$</p>
