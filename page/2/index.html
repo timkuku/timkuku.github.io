@@ -148,6 +148,126 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/09/27/%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97%E7%9A%84%E8%AF%AF%E5%B7%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Liao">
+      <meta itemprop="description" content="We all have moments of desperation. But if we can face them head on, thats when we find out just how strong we really are.建立我自己的小站，记录自己的成长计划。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Timkuku">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/09/27/%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97%E7%9A%84%E8%AF%AF%E5%B7%AE/" class="post-title-link" itemprop="url">数值计算的误差</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-09-27 00:00:00" itemprop="dateCreated datePublished" datetime="2022-09-27T00:00:00+08:00">2022-09-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-10-08 17:46:28" itemprop="dateModified" datetime="2022-10-08T17:46:28+08:00">2022-10-08</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="误差与有效数字"><a href="#误差与有效数字" class="headerlink" title="误差与有效数字"></a>误差与有效数字</h2><p><strong>定义一</strong>  设$x$为准确值，$x^{*}$为$x$的一个近似值，称$e^{*}=x^{*}-x$为近似值的绝对误差</p>
+<p><strong>定义二</strong>  若近似值$x^{*}$的误差限是某一位的半个单位，该位到$x^{*}$的第一个非零数字共有$n$为，就说$x^{*}$有$n$为有效数字，可以表示为
+$$
+x^{*}=\pm 10^{m}\times (a_{1}+a_{2}\times 10^{-1}+\cdots+a_{n}\times 10^{-(n-1)}),
+$$
+其中$a_{i}(i=1,2,\cdots,n)$是0到9中的一个数字，$a_{1}\neq 0$，$m$为整数，且
+$$
+\left| x-x^{*}\right|\leq\frac12\times10^{m-n+1}.
+$$
+</p>
+<p>另外需要说明的其余几个符号：</p>
+<p><strong>误差限$\epsilon^{*}$</strong>	误差绝对值的上界</p>
+<p><strong>相对误差$e_{r}^{*}$</strong>	$\frac{e^{*}}{x}=\frac{x^{*}-x}{x}$或者$\frac{e^{*}}{x^{*}}=\frac{x^{*}-x}{x^{*}}$</p>
+<p><strong>相对误差限$\epsilon_{r}^{*}$</strong>	$\epsilon_{r}^{*}=\frac{\epsilon^{*}}{\left|x^{*}\right|}$</p>
+<h2 id="数值运算的误差估计"><a href="#数值运算的误差估计" class="headerlink" title="数值运算的误差估计"></a>数值运算的误差估计</h2>	
+
+两个近似值$x_{1}^{*}$和$x_{2}^{*}$的误差限分别为$\epsilon(x_{1}^{*})$和$\epsilon(x_{2}^{*})$，则它们进行加减乘除运算得到的误差限满足：
+$$
+\begin{array}
+\epsilon(x_{1}^{*}\pm x_{2}^{*})\le \epsilon(x_{1}^{*})+\epsilon(x_{1}^{*});\\\\
+\epsilon(x_{1}^{*}x_{2}^{*})\le\left|x_{1}^{*}\right|\epsilon(x_{1}^{*})+\left|x_{2}^{*}\right|\epsilon(x_{2}^{*});\\\\
+\epsilon(x_{1}^{*}/x_{2}^{*})=\frac{\left|x_{1}^{*}\right|\epsilon(x_{1}^{*})+\left|x_{2}^{*}\right|\epsilon(x_{2}^{*})}{\left|x_{2}^{*}\right|^{2}},x_{2}^{*}\neq 0.
+\end{array}
+$$
+更一般的情况：
+
+​	泰勒展开：
+$$
+f(x)=f(a)+\frac{f^{'}(a)}{1}(x-a)+\frac{f^{(2)}(a)}{2!}(x-a)^{2}+\cdots+\frac{f^{(n+1)}(a)}{(n+1)!}(x-a)^{n+1}
+$$
+其中$\frac{f^{(n+1)}(a)}{(n+1)!}(x-a)^{n+1}$为拉格朗日余项
+
+​	设f(x)为一元可微函数，则对f(x)进行泰勒展开，$a=x^{*}$：
+$$
+f(x)=f(x^{*})+\frac{f^{'}(x^{*})}{1}(x-x^{*})+\frac{f^{''}(x^{*})}{2!}(x-x^{*})^{2}
+$$
+推导得
+$$
+f(x)-f(x^{*})=f^{'}(x^{*})(x-x^{*})+\frac{f^{''}(\epsilon)}{2!}(x-x^{*})^{2},\epsilon介于x和x^{*}之间
+$$
+去绝对值，并忽略$\epsilon(x^{*})$得
+$$
+\epsilon(f(x^{*}))\approx\left|f^{'}(x^{*})\right|\epsilon(x^{*})
+$$
+​	当$f$为多元函数时，大同小异，，设$A=f(x_{1},x_{2},\cdots,x_{n})，A近似值A^{*}=f(x_{1}^{*},x_{2}^{*},\cdots,x_{n}^{*})$可以推导出：
+$$
+e(A^{*})=A^{*}-A\approx\sum\limits_{k=1}^{n}(\frac{(\partial f)}{\partial x_{k}})^{*}\epsilon_{k}^{*},
+$$
+误差限为：
+$$
+e(A^{*})=A^{*}-A\approx\sum\limits_{k=1}^{n}\left|(\frac{(\partial f)}{\partial x_{k}})^{*}\right|\epsilon(x_{k}^{*});
+$$
+而$A^{*}$的相对误差限为
+$$
+e_{r}^{*}=\epsilon_{r}(A^{*})=\frac{\epsilon(A^{*})}{\left|A^{*}\right|}\approx\sum\limits_{k=1}^{n}\left|(\frac{(\partial f)}{\partial x_{k}})^{*}\right|\frac{\epsilon(x_{k}^{*})}{\left|A^{*}\right|};
+$$
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/09/26/%E6%9A%82%E5%AE%9A%E8%AE%A1%E5%88%92/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -179,7 +299,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-07 11:46:57" itemprop="dateModified" datetime="2022-12-07T11:46:57+08:00">2022-12-07</time>
+                <time title="修改时间：2022-12-22 20:47:20" itemprop="dateModified" datetime="2022-12-22T20:47:20+08:00">2022-12-22</time>
               </span>
 
           
@@ -1091,7 +1211,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
